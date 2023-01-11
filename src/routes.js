@@ -37,13 +37,10 @@ Coded by www.creative-tim.com
 
 // Material Dashboard 2 React layouts
 import Dashboard from "layouts/dashboard";
-import Tables from "layouts/tables";
-import Billing from "layouts/billing";
-import RTL from "layouts/rtl";
-import Notifications from "layouts/notifications";
+import Citizens from "layouts/citizen";
+import Admins from "layouts/admin";
 import Profile from "layouts/profile";
 import SignIn from "layouts/authentication/sign-in";
-import SignUp from "layouts/authentication/sign-up";
 
 // @mui icons
 import Icon from "@mui/material/Icon";
@@ -62,23 +59,23 @@ const routes = [
     name: "Citoyens",
     key: "citoyens",
     icon: <Icon fontSize="small">people</Icon>,
-    route: "/citoyens",
-    component: <Tables />,
+    route: "/citizens",
+    component: <Citizens />,
   },
   {
     type: "collapse",
-    name: "Notifications",
-    key: "notifications",
-    icon: <Icon fontSize="small">notifications</Icon>,
-    route: "/notifications",
-    component: <Notifications />,
+    name: "Administrateurs",
+    key: "admin",
+    icon: <Icon fontSize="small">people</Icon>,
+    route: "/administrator",
+    component: <Admins />,
   },
   {
     type: "collapse",
     name: "Profil",
     key: "profil",
     icon: <Icon fontSize="small">person</Icon>,
-    route: "/profil",
+    route: "/profile",
     component: <Profile />,
   },
   {
