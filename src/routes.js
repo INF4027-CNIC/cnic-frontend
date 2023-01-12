@@ -57,7 +57,7 @@ const routes = [
   {
     type: "collapse",
     name: "Citoyens",
-    key: "citoyens",
+    key: "citizens",
     icon: <Icon fontSize="small">people</Icon>,
     route: "/citizens",
     component: <Citizens />,
@@ -67,13 +67,13 @@ const routes = [
     name: "Administrateurs",
     key: "admin",
     icon: <Icon fontSize="small">people</Icon>,
-    route: "/administrator",
+    route: "/admin",
     component: <Admins />,
   },
   {
     type: "collapse",
     name: "Profil",
-    key: "profil",
+    key: "profile",
     icon: <Icon fontSize="small">person</Icon>,
     route: "/profile",
     component: <Profile />,
@@ -81,7 +81,7 @@ const routes = [
   {
     type: "collapse",
     name: "Connexion",
-    key: "connexion",
+    key: "sign-in",
     icon: <Icon fontSize="small">login</Icon>,
     route: "/authentication/sign-in",
     component: <SignIn />,
