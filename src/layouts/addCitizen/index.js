@@ -21,9 +21,6 @@ import Card from "@mui/material/Card";
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 
-//root navigation to add citizen
-import { Routes, Route, Navigate, useLocation } from "react-router-dom";
-
 // Material Dashboard 2 React example components
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
@@ -35,21 +32,12 @@ import authorsTableData from "layouts/citizen/data/authorsTableData";
 import MDButton from "components/MDButton";
 
 import Box from "@mui/material/Box";
-import routes from "routes";
 
-function Citizens() {
+function AddCitizens() {
   const { columns, rows } = authorsTableData();
 
-  const handleOpenCitizenRegistration = (route)=>{
-    console.log("Hello")
-    if (route.route) {
-      console.log("Hello", route.route)
-      return (
-        <Routes>
-          <Route exact path="/addcitizen" element={route.component} key={route.key} />
-        </Routes>
-      );
-    }
+  const handleOpenCitizenRegistration = ()=>{
+    
   }
 
   return (
@@ -88,7 +76,7 @@ function Citizens() {
                     color="white" 
                     size="sm" 
                     variant="contained"
-                    onClick={handleOpenCitizenRegistration(routes)}
+                    onClick={handleOpenCitizenRegistration}
                   >
                     Enregistrer un citoyen
                   </MDButton>
@@ -107,10 +95,9 @@ function Citizens() {
           </Grid>
         </Grid>
       </MDBox>
-      <handleOpenCitizenRegistration/>
       <Footer />
     </DashboardLayout>
   );
 }
 
-export default Citizens;
+export default AddCitizens;
