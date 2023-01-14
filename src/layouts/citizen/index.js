@@ -69,7 +69,7 @@ function Citizens() {
                     top: -5,
                   }}
                 >
-                  <Link to="/add_citizen">
+                  <Link to="/add-citizen">
                     <MDButton color="white" size="sm" variant="contained">
                       Enregistrer un citoyen
                     </MDButton>
