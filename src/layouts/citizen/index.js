@@ -32,6 +32,7 @@ import authorsTableData from "layouts/citizen/data/authorsTableData";
 import MDButton from "components/MDButton";
 
 import Box from "@mui/material/Box";
+import { Link } from 'react-router-dom'
 
 function Citizens() {
   const { columns, rows } = authorsTableData();
@@ -68,9 +69,11 @@ function Citizens() {
                     top: -5,
                   }}
                 >
-                  <MDButton color="white" size="sm" variant="contained">
-                    Enregistrer un citoyen
-                  </MDButton>
+                  <Link to="/add_citizen">
+                    <MDButton color="white" size="sm" variant="contained">
+                      Enregistrer un citoyen
+                    </MDButton>
+                  </Link>
                 </Box>
               </MDBox>
               <MDBox pt={3}>

@@ -79,13 +79,16 @@ const routes = [
     component: <Profile />,
   },
   {
+    type: "divider",
+  },
+  {
     type: "collapse",
     name: "Connexion",
     key: "sign-in",
     icon: <Icon fontSize="small">login</Icon>,
     route: "/authentication/sign-in",
     component: <SignIn />,
-  },
+  }
 ];
 
 export default routes;
