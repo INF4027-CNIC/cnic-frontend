@@ -17,9 +17,21 @@ const SecondStep = (props) => {
         noValidate
         autoComplete="off"
       >
-        <TextField id="outlined-basic" label="Nom complet du pere" variant="outlined" />
-        <TextField id="outlined-basic" label="Nom complet de la mer" variant="outlined" />
-        <TextField id="outlined-basic" label="Adresse" variant="outlined" />
+        <TextField
+         id="outlined-basic" label="Nom complet du pere" variant="outlined" 
+         value={props.dadName}
+         onChange={(event)=>props.handleChangeDadName(event)}
+        />
+        <TextField
+         id="outlined-basic" label="Nom complet de la mer" variant="outlined" 
+         value={props.munName}
+         onChange={(event)=>props.handleChangeMunName(event)}
+        />
+        <TextField
+         id="outlined-basic" label="Adresse" variant="outlined" 
+         value={props.adress}
+         onChange={(event)=>props.handleChangeAdress(event)}
+        />
       </Box>
 
       <div>
