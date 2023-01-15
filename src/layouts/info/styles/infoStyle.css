@@ -1,0 +1,107 @@
+.infoUser-content{
+    display:flex;
+    flex-direction: column;
+    background-color:#ffff;
+    border-color: #808080;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 3px 0px 5px 0px;
+}
+.infoUser-Header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    /* align-items: center; */
+}
+.profil_Info{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 30%;
+}
+.imageProfil{
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.Userinformation{
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    margin-left: 15px;
+    font-size: 14px;
+}
+.Userinformation span:nth-child(1) {
+    color: black;
+    font-weight: bold;
+    font-size: 14px;
+  }
+.Userinformation span:nth-child(2) {
+    font-size: 12px;
+  }
+.Userinformation span:nth-child(3) {
+    font-size: 10px;
+  }
+  .Buttons{
+      width: 20%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      height: 50px;
+  }
+  button{
+      height: 30px;
+      width: 85px;
+      border-radius: 5px;
+      border: none;
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+      padding: 10px;
+  }
+  button:hover{
+      background-color:rgb(26, 141, 248);
+      color:#ffff;
+      font-weight: bold;
+  }
+  .content_information{
+      display: flex;
+      flex-direction: column;
+      margin-top: 15px;
+  }
+  .topElement_information, .BottomElement{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+       
+  }
+  .BottomElement{
+      margin-top: 30px;
+  }
+  .firstTopElt{
+      display: flex;
+      flex-direction: column;
+      width: 35%;
+  }
+  .infoTitle {
+    color: rgb(26, 141, 248);
+    height: 25px;
+    font-weight: bold;
+    font-size: 14px;
+    border-bottom: 1px solid;
+    border-bottom-color:rgb(26, 141, 248) ;
+  }
+  .infoDesc{
+      display: flex;
+      flex-direction: column;
+      margin-top: 10px;
+  }
+  .infoDesc span:nth-child(1) {
+    color: black;
+    font-weight: bold;
+    font-size: 14px;
+  }
+  .infoDesc span:nth-child(2) {
+    font-size: 12px;
+  }
