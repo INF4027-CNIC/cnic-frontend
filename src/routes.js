@@ -45,6 +45,7 @@ import SignIn from "layouts/authentication/sign-in";
 // @mui icons
 import Icon from "@mui/material/Icon";
 import AddCitizens from "layouts/addCitizen";
+import Export from "layouts/exports";
 
 const routes = [
   {
@@ -78,6 +79,17 @@ const routes = [
     icon: <Icon fontSize="small">person</Icon>,
     route: "/profile",
     component: <Profile />,
+  },
+  {
+    type: "divider",
+  },
+  {
+    type: "collapse",
+    name: "Export",
+    key: "export",
+    icon: <Icon fontSize="small">print</Icon>,
+    route: "/export",
+    component: <Export />,
   },
   {
     type: "divider",
