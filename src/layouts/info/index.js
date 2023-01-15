@@ -10,6 +10,7 @@ import MDBox from "components/MDBox";
 import image from "assets/images/img1.jpg";
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import GridViewIcon from '@mui/icons-material/GridView';
+import QRCode from 'qrcode.react';
 import "./styles/infoStyle.css";
 import { Icon } from "@mui/material";
 
@@ -102,6 +103,7 @@ function Info() {
 
                 <div className="firstTopElt">
                   <div className="infoTitle" >Codes</div>
+                  <QRCode value="https://reactjs.org/" renderAs="canvas" style={{marginTop:20,marginBottom:10}} />
                   <div className="infoDesc">
                     <span> 872031 </span>
                     <span> Code Numerique</span>
