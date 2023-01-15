@@ -25,18 +25,36 @@ import MDTypography from "components/MDTypography";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
+import DataTable from "examples/Tables/DataTable";
 
 // Data
-import authorsTableData from "layouts/citizen/data/authorsTableData";
 import MDButton from "components/MDButton";
+import UserForm from "./steps/UserForm";
+import './styles.css'
 
 function AddCitizen() {
-  const { columns, rows } = authorsTableData();
+
 
   return (
     <DashboardLayout>
       <DashboardNavbar />
       <MDBox pt={6} pb={3}>
+        <Grid container spacing={6}>
+          <Grid item xs={12}>
+            <Card>
+              <MDBox pt={3}>
+              <div 
+                style={{
+                  marginInline: "20px",
+                  marginBlock: "20px",
+                }}
+              >
+                  <UserForm />
+                </div>
+              </MDBox>
+            </Card>
+          </Grid>
+        </Grid>
       </MDBox>
       <Footer />
     </DashboardLayout>
