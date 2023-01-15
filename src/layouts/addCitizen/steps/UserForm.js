@@ -111,7 +111,8 @@ const UserForm = () => {
                 variant="contained"
                 sx={{
                     color: "#FFF",
-                    maxHeight: 50,
+                    height: 50,
+                    width: 100,
                 }}
                 
                 onClick={() => {
