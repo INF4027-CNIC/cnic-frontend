@@ -78,8 +78,18 @@ const UserForm = () => {
   };
 
   //proceed to next step
+  // const nextStep = () => {
+  //   setPage((currPage) => currPage + 1);
+    
+  // };
   const nextStep = () => {
-    setPage((currPage) => currPage + 1);
+    console.log("step value", names && surName && birthDay && birthPlace && gender && height && job && page === 0)
+    if (names && surName && birthDay && birthPlace && gender && height && job && page === 0) {
+      setPage((currPage) => currPage + 1);
+    }
+    if (dadName && munName && adress && page === 1) {
+      setPage((currPage) => currPage + 1);
+    }
     
   };
 
@@ -206,7 +216,13 @@ const UserForm = () => {
                     if (page === pageSubTitiles.length - 1) {
                     console.log(userInput);
                     } else {
-                    setPage((currPage) => currPage + 1);
+                      console.log("step value", names && surName && birthDay && birthPlace && gender && height && job && page === 0)
+                      if (names && surName && birthDay && birthPlace && gender && height && job && page === 0) {
+                        setPage((currPage) => currPage + 1);
+                      }
+                      if (dadName && munName && adress && page === 1) {
+                        setPage((currPage) => currPage + 1);
+                      }
                     }
                 }}
                 >
@@ -231,11 +247,18 @@ const UserForm = () => {
                     />
                 }
                     onClick={() => {
-                        if (page === pageSubTitiles.length - 1) {
-                        console.log(userInput);
-                        } else {
-                        setPage((currPage) => currPage + 1);
+                      if (page === pageSubTitiles.length - 1) {
+                      console.log(userInput);
+                      } else {
+                        console.log("step value", names && surName && birthDay && birthPlace && gender && height && job && page === 0)
+                        if (names && surName && birthDay && birthPlace && gender && height && job && page === 0) {
+                          setPage((currPage) => currPage + 1);
                         }
+                        if (dadName && munName && adress && page === 1) {
+                          setPage((currPage) => currPage + 1);
+                        }
+                      }
+                        
                     }}
                 >
                   Suivant
