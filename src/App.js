@@ -16,7 +16,12 @@ Coded by www.creative-tim.com
 import { useState, useEffect, useMemo } from "react";
 
 // react-router components
-import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  Navigate,
+  useLocation,
+} from "react-router-dom";
 
 // @mui material components
 import { ThemeProvider } from "@mui/material/styles";
@@ -40,13 +45,19 @@ import themeDark from "assets/theme-dark";
 import routes from "routes";
 
 // Material Dashboard 2 React contexts
-import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "context";
+import {
+  useMaterialUIController,
+  setMiniSidenav,
+  setOpenConfigurator,
+} from "context";
 
 // Images
 import brandWhite from "assets/images/logo-ct.png";
 import brandDark from "assets/images/logo-ct-dark.png";
 import AddCitizen from "layouts/addCitizen";
 import Info from "layouts/info";
+import { CurrentUserProvider } from "providers/currentUser";
+import { CitizenProvider } from "providers/citizens";
 
 export default function App() {
   const [controller, dispatch] = useMaterialUIController();
@@ -79,9 +90,6 @@ export default function App() {
     }
   };
 
-  // Change the openConfigurator state
-  const handleConfiguratorOpen = () => setOpenConfigurator(dispatch, !openConfigurator);
-
   // Setting the dir attribute for the body element
   useEffect(() => {
     document.body.setAttribute("dir", direction);
@@ -100,57 +108,58 @@ export default function App() {
       }
 
       if (route.route) {
-        return <Route exact path={route.route} element={route.component} key={route.key} />;
+        return (
+          <Route
+            exact
+            path={route.route}
+            element={route.component}
+            key={route.key}
+          />
+        );
       }
 
       return null;
     });
 
-  const configsButton = (
-    <MDBox
-      display="flex"
-      justifyContent="center"
-      alignItems="center"
-      width="3.25rem"
-      height="3.25rem"
-      bgColor="white"
-      shadow="sm"
-      borderRadius="50%"
-      position="fixed"
-      right="2rem"
-      bottom="2rem"
-      zIndex={99}
-      color="dark"
-      sx={{ cursor: "pointer" }}
-      onClick={handleConfiguratorOpen}
-    >
-      <Icon fontSize="small" color="inherit">
-        settings
-      </Icon>
-    </MDBox>
-  );
-
   return (
     <ThemeProvider theme={darkMode ? themeDark : theme}>
-      <CssBaseline />
-      {layout === "dashboard" && (
-        <>
-          <Sidenav
-            color={sidenavColor}
-            brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
-            brandName="CNIC"
-            routes={routes}
-            onMouseEnter={handleOnMouseEnter}
-            onMouseLeave={handleOnMouseLeave}
-          />
-        </>
-      )}
-      <Routes>
-        {getRoutes(routes)}
-        <Route exact path="/add-citizen" key={"Add Citizen"} element={<AddCitizen />} />
-        <Route exact path="/personal-info" key={"Personal Information"} element={<Info />} />
-        <Route path="*" element={<Navigate to="/dashboard" />} />
-      </Routes>
+      <CurrentUserProvider>
+        <CitizenProvider>
+          <CssBaseline />
+          {layout === "dashboard" && (
+            <>
+              <Sidenav
+                color={sidenavColor}
+                brand={
+                  (transparentSidenav && !darkMode) || whiteSidenav
+                    ? brandDark
+                    : brandWhite
+                }
+                brandName="CNIC"
+                routes={routes}
+                onMouseEnter={handleOnMouseEnter}
+                onMouseLeave={handleOnMouseLeave}
+              />
+            </>
+          )}
+          <Routes>
+            {getRoutes(routes)}
+            <Route
+              exact
+              path="/add-citizen"
+              key={"Add Citizen"}
+              element={<AddCitizen />}
+            />
+            <Route
+              exact
+              path="/personal-info"
+              key={"Personal Information"}
+              element={<Info />}
+            />
+            <Route path="*" element={<Navigate to="/dashboard" />} />
+          </Routes>
+        </CitizenProvider>
+      </CurrentUserProvider>
     </ThemeProvider>
   );
 }

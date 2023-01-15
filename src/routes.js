@@ -44,6 +44,7 @@ import SignIn from "layouts/authentication/sign-in";
 
 // @mui icons
 import Icon from "@mui/material/Icon";
+import AddCitizens from "layouts/addCitizen";
 
 const routes = [
   {
@@ -88,7 +89,15 @@ const routes = [
     icon: <Icon fontSize="small">login</Icon>,
     route: "/authentication/sign-in",
     component: <SignIn />,
-  }
+  },
+  // {
+  //   type: "collapse",
+  //   name: "add citizens",
+  //   key: "add citizens",
+  //   icon: <Icon fontSize="small">person</Icon>,
+  //   route: "/Add_citizen",
+  //   component: <AddCitizens />,
+  // },
 ];
 
 export default routes;
