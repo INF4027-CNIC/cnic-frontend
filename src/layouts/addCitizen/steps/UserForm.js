@@ -13,6 +13,9 @@ import "../styles.css"
 const UserForm = () => {
   //For manageing state of multi steps Form
   const [page, setPage] = useState(0);
+  const [erreur1, setErreur1] = useState(false)
+  const [erreur2, setErreur2] = useState(false)
+
 
   const [names, setNames] = useState("");
   const [surName, setSurNames] = useState("");
@@ -77,21 +80,40 @@ const UserForm = () => {
     setStation(e.target.value)
   };
 
-  //proceed to next step
-  // const nextStep = () => {
-  //   setPage((currPage) => currPage + 1);
-    
-  // };
   const nextStep = () => {
-    console.log("step value", names && surName && birthDay && birthPlace && gender && height && job && page === 0)
-    if (names && surName && birthDay && birthPlace && gender && height && job && page === 0) {
-      setPage((currPage) => currPage + 1);
+    if (page === pageSubTitiles.length - 1) {
+      console.log(userInput);
+    } else {
+      console.log("step value", names && surName && birthDay && birthPlace && gender && height && job && page === 0)
+      if (
+        names && surName && 
+        birthDay && birthPlace && 
+        gender && height && job && 
+        page === 0
+        ) {
+
+        setPage((currPage) => currPage + 1);
+        setErreur1(false)
+
+      } else if (page === 0) {
+
+        setErreur1(true)
+      }
+      if (
+        dadName && munName && 
+        adress && page === 1
+        ) {
+
+        setPage((currPage) => currPage + 1);
+        setErreur2(false)
+
+      } else if (page === 1) {
+
+        setErreur2(true)
+      }
     }
-    if (dadName && munName && adress && page === 1) {
-      setPage((currPage) => currPage + 1);
-    }
-    
-  };
+      
+  }
 
   const pageTitles = [
     "Information personelle",
@@ -99,9 +121,9 @@ const UserForm = () => {
     "Information complementaire",
   ];
   const pageSubTitiles = [
-    "You can always change them later.",
-    "You can always create another workspace later",
-    "We'll streamline your setup expereince accordingly.",
+    "veillez a remplir tous les champs d'informations.",
+    "Remplissez tout information suplementaire",
+    "Renseigner votre poste d'identification.",
   ];
 
   const PageDisplay = () => {
@@ -163,7 +185,12 @@ const UserForm = () => {
               ? `Congratulations, ` + userInput.displayname
               : pageTitles[page]}
           </h2>
-          {/* <p>{pageSubTitiles[page]}</p> */}
+          { erreur1 && page === 0 ?
+            <p className="errorSigne">{ pageSubTitiles[page] }</p>:
+            erreur2 &&  page === 1?
+            <p className="errorSigne">{pageSubTitiles[page]}</p>:
+              null
+          }
         </div>
         <div className="userForm-container-body">{PageDisplay()}</div>
         <div className="userForm-footer">
@@ -246,20 +273,7 @@ const UserForm = () => {
             
                     />
                 }
-                    onClick={() => {
-                      if (page === pageSubTitiles.length - 1) {
-                      console.log(userInput);
-                      } else {
-                        console.log("step value", names && surName && birthDay && birthPlace && gender && height && job && page === 0)
-                        if (names && surName && birthDay && birthPlace && gender && height && job && page === 0) {
-                          setPage((currPage) => currPage + 1);
-                        }
-                        if (dadName && munName && adress && page === 1) {
-                          setPage((currPage) => currPage + 1);
-                        }
-                      }
-                        
-                    }}
+                  onClick={nextStep}
                 >
                   Suivant
                     
