@@ -1,14 +1,13 @@
 import React, { useState } from "react";
-import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
-import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
-import Button from '@mui/material/Button';
+import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
+import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
+import Button from "@mui/material/Button";
 import FirstStep from "./FirstStep";
 import SecondStep from "./SecondStep";
 import ThirdStep from "./ThirdStep";
 
 import MultiStepProgressBar from "./MultiStepProgressBar";
-import "../styles.css"
-
+import "../styles.css";
 
 const UserForm = () => {
   //For manageing state of multi steps Form
@@ -19,13 +18,12 @@ const UserForm = () => {
     displayname: "",
     workspaceName: "",
     workspaceUrl: "",
-    checkboxValue: ""
+    checkboxValue: "",
   });
 
   //proceed to next step
   const nextStep = () => {
     setPage((currPage) => currPage + 1);
-    
   };
 
   const pageTitles = [
@@ -41,10 +39,17 @@ const UserForm = () => {
 
   const PageDisplay = () => {
     if (page === 0)
-      return <FirstStep nextStep={nextStep} handleChange={handleChange} />;
+      return (
+        <FirstStep nextStep={nextStep} handleChange={handleChange} />
+      );
     else if (page === 1)
-      return <SecondStep nextStep={nextStep} handleChange={handleChange} />   
-    else return <ThirdStep nextStep={nextStep} handleChange={handleChange} />;
+      return (
+        <SecondStep nextStep={nextStep} handleChange={handleChange} />
+      );
+    else
+      return (
+        <ThirdStep nextStep={nextStep} handleChange={handleChange} />
+      );
   };
 
   //handle field changes
@@ -70,93 +75,82 @@ const UserForm = () => {
         </div>
         <div className="userForm-container-body">{PageDisplay()}</div>
         <div className="userForm-footer">
-            <div>
-                {page === 0 ?
-                    null
-                :
-                    <Button
-                        variant="contained"
-                        sx={{
-                            color: "#FFF",
-                            maxHeight: 50,
-                            backgroundColor: "#C0C0C0",
-                            '&:hover': { backgroundColor: "transparent" },
-                        }}
-                        startIcon={
-                            <KeyboardBackspaceIcon
-                            color="white"
-                            sx={{
-                                height: 40,
-                                // width: 40,
-                                fontSize: 40,
-                            }}
-                
-                        />
-                        }
-                        
-                        onClick={() => {
-                           
-                            if(page > 0) setPage((currPage) => currPage - 1);
-                        }}
-                    >
-                        Précédent
-                    </Button>
+          <div>
+            {page === 0 ? null : (
+              <Button
+                variant="contained"
+                sx={{
+                  color: "#FFF",
+                  maxHeight: 50,
+                  backgroundColor: "#C0C0C0",
+                  "&:hover": { backgroundColor: "transparent" },
+                }}
+                startIcon={
+                  <KeyboardBackspaceIcon
+                    color="white"
+                    sx={{
+                      height: 40,
+                      // width: 40,
+                      fontSize: 40,
+                    }}
+                  />
                 }
-
-            </div>
-
-            <div>
-            {page === pageTitles.length - 1 ?
-              <Button
-                variant="contained"
-                sx={{
-                    color: "#FFF",
-                    maxHeight: 50,
-                }}
-                
                 onClick={() => {
-                    if (page === pageSubTitiles.length - 1) {
-                    console.log(userInput);
-                    } else {
-                    setPage((currPage) => currPage + 1);
-                    }
+                  if (page > 0) setPage((currPage) => currPage - 1);
                 }}
-                >
-                    Valider
-                </Button>
-              : 
+              >
+                Précédent
+              </Button>
+            )}
+          </div>
+
+          <div>
+            {page === pageTitles.length - 1 ? (
               <Button
                 variant="contained"
                 sx={{
-                    color: "#FFF",
-                    maxHeight: 50,
+                  color: "#FFF",
+                  maxHeight: 50,
+                }}
+                onClick={() => {
+                  if (page === pageSubTitiles.length - 1) {
+                    console.log(userInput);
+                  } else {
+                    setPage((currPage) => currPage + 1);
+                  }
+                }}
+              >
+                Valider
+              </Button>
+            ) : (
+              <Button
+                variant="contained"
+                sx={{
+                  color: "#FFF",
+                  maxHeight: 50,
                 }}
                 endIcon={
-                    <ArrowRightAltIcon
-                        color="white"
-                        sx={{
-                            height: 40,
-                            // width: 40,
-                            fontSize: 40,
-                        }}
-            
-                    />
-                }
-                    onClick={() => {
-                        if (page === pageSubTitiles.length - 1) {
-                        console.log(userInput);
-                        } else {
-                        setPage((currPage) => currPage + 1);
-                        }
+                  <ArrowRightAltIcon
+                    color="white"
+                    sx={{
+                      height: 40,
+                      // width: 40,
+                      fontSize: 40,
                     }}
-                >
-                    Suivant
-                    
-                </Button>
- 
-            }
-            </div>
-        
+                  />
+                }
+                onClick={() => {
+                  if (page === pageSubTitiles.length - 1) {
+                    console.log(userInput);
+                  } else {
+                    setPage((currPage) => currPage + 1);
+                  }
+                }}
+              >
+                Suivant
+              </Button>
+            )}
+          </div>
         </div>
       </div>
     </div>
