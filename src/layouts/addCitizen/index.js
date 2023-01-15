@@ -28,17 +28,12 @@ import Footer from "examples/Footer";
 import DataTable from "examples/Tables/DataTable";
 
 // Data
-import authorsTableData from "layouts/citizen/data/authorsTableData";
 import MDButton from "components/MDButton";
+import UserForm from "./steps/UserForm";
+import './styles.css'
 
-import Box from "@mui/material/Box";
+function AddCitizen() {
 
-function AddCitizens() {
-  const { columns, rows } = authorsTableData();
-
-  const handleOpenCitizenRegistration = ()=>{
-    
-  }
 
   return (
     <DashboardLayout>
@@ -47,49 +42,15 @@ function AddCitizens() {
         <Grid container spacing={6}>
           <Grid item xs={12}>
             <Card>
-              <MDBox
-                mx={2}
-                mt={-3}
-                py={3}
-                px={2}
-                variant="gradient"
-                bgColor="info"
-                borderRadius="lg"
-                coloredShadow="info"
+              <MDBox pt={3}>
+              <div 
                 style={{
-                  flexDirection: "row",
+                  marginInline: "20px",
+                  marginBlock: "20px",
                 }}
               >
-                <MDTypography variant="h6" color="white">
-                  Liste des citoyens
-                </MDTypography>
-
-                <Box
-                  sx={{
-                    display: "flex",
-                    position: "absolute",
-                    right: 30,
-                    top: -5,
-                  }}
-                >
-                  <MDButton
-                    color="white" 
-                    size="sm" 
-                    variant="contained"
-                    onClick={handleOpenCitizenRegistration}
-                  >
-                    Enregistrer un citoyen
-                  </MDButton>
-                </Box>
-              </MDBox>
-              <MDBox pt={3}>
-                <DataTable
-                  table={{ columns, rows }}
-                  isSorted={false}
-                  entriesPerPage={false}
-                  showTotalEntries={false}
-                  noEndBorder
-                />
+                  <UserForm />
+                </div>
               </MDBox>
             </Card>
           </Grid>
@@ -100,4 +61,4 @@ function AddCitizens() {
   );
 }
 
-export default AddCitizens;
+export default AddCitizen;

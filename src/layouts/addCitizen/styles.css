@@ -1,0 +1,12 @@
+/* .CenterBlock{
+    margin-inline: 20px;
+} */
+.step {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60px;
+    width: 60px;
+    border: 1px solid lightgray;
+    border-radius: 50%;
+}

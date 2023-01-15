@@ -45,6 +45,8 @@ import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "co
 // Images
 import brandWhite from "assets/images/logo-ct.png";
 import brandDark from "assets/images/logo-ct-dark.png";
+import AddCitizen from "layouts/addCitizen";
+import Info from "layouts/info";
 
 export default function App() {
   const [controller, dispatch] = useMaterialUIController();
@@ -145,6 +147,8 @@ export default function App() {
       )}
       <Routes>
         {getRoutes(routes)}
+        <Route exact path="/add-citizen" key={"Add Citizen"} element={<AddCitizen />} />
+        <Route exact path="/personal-info" key={"Personal Information"} element={<Info />} />
         <Route path="*" element={<Navigate to="/dashboard" />} />
       </Routes>
     </ThemeProvider>

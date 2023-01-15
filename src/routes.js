@@ -80,6 +80,9 @@ const routes = [
     component: <Profile />,
   },
   {
+    type: "divider",
+  },
+  {
     type: "collapse",
     name: "Connexion",
     key: "sign-in",
@@ -87,14 +90,14 @@ const routes = [
     route: "/authentication/sign-in",
     component: <SignIn />,
   },
-  {
-    type: "collapse",
-    name: "add citizens",
-    key: "add citizens",
-    icon: <Icon fontSize="small">person</Icon>,
-    route: "/Add_citizen",
-    component: <AddCitizens />,
-  },
+  // {
+  //   type: "collapse",
+  //   name: "add citizens",
+  //   key: "add citizens",
+  //   icon: <Icon fontSize="small">person</Icon>,
+  //   route: "/Add_citizen",
+  //   component: <AddCitizens />,
+  // },
 ];
 
 export default routes;

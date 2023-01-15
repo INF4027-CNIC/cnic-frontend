@@ -35,22 +35,10 @@ import authorsTableData from "layouts/citizen/data/authorsTableData";
 import MDButton from "components/MDButton";
 
 import Box from "@mui/material/Box";
-import routes from "routes";
+import { Link } from 'react-router-dom'
 
 function Citizens() {
   const { columns, rows } = authorsTableData();
-
-  const handleOpenCitizenRegistration = (route)=>{
-    console.log("Hello")
-    if (route.route) {
-      console.log("Hello", route.route)
-      return (
-        <Routes>
-          <Route exact path="/addcitizen" element={route.component} key={route.key} />
-        </Routes>
-      );
-    }
-  }
 
   return (
     <DashboardLayout>
@@ -84,14 +72,11 @@ function Citizens() {
                     top: -5,
                   }}
                 >
-                  <MDButton
-                    color="white" 
-                    size="sm" 
-                    variant="contained"
-                    onClick={handleOpenCitizenRegistration(routes)}
-                  >
-                    Enregistrer un citoyen
-                  </MDButton>
+                  <Link to="/add-citizen">
+                    <MDButton color="white" size="sm" variant="contained">
+                      Enregistrer un citoyen
+                    </MDButton>
+                  </Link>
                 </Box>
               </MDBox>
               <MDBox pt={3}>
@@ -107,7 +92,6 @@ function Citizens() {
           </Grid>
         </Grid>
       </MDBox>
-      <handleOpenCitizenRegistration/>
       <Footer />
     </DashboardLayout>
   );
