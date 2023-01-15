@@ -10,3 +10,39 @@
     border: 1px solid lightgray;
     border-radius: 50%;
 }
+.textField{
+    background-color: "#F5F5F5";
+}
+/* // information personnelle */
+.colorTitle {
+    color: #1695DC;
+    margin-top: 10px;
+} 
+.form{
+    display: flex;
+    flex-direction: "column";
+    justify-content: space-between;
+    width: "100%";
+    margin-top: "10px";
+}
+.userForm-footer{
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+/* //seconde page */
+/* //Step three */
+.titleItem {
+    color: #000;
+    font-size: 24px;
+
+}
+.elemItem{
+    color: #707070;
+    font-size: 18px;
+}
+.Item{
+    margin-bottom: 10px;
+}

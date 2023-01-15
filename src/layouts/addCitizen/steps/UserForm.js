@@ -1,10 +1,15 @@
 import React, { useState } from "react";
+import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
+import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
+import Button from '@mui/material/Button';
 import FirstStep from "./FirstStep";
 import SecondStep from "./SecondStep";
 import ThirdStep from "./ThirdStep";
-import LastStep from "./LastStep";
+
 import MultiStepProgressBar from "./MultiStepProgressBar";
-// import { Row, Col } from "react-bootstrap";
+import "../styles.css"
+
+
 const UserForm = () => {
   //For manageing state of multi steps Form
   const [page, setPage] = useState(0);
@@ -24,9 +29,9 @@ const UserForm = () => {
   };
 
   const pageTitles = [
-    "Welcome! First things first...",
-    "Let's set up a home for all your work",
-    "How are you planning to use Eden?"
+    "Information personelle",
+    "Information suplementaire",
+    "Information complementaire",
   ];
   const pageSubTitiles = [
     "You can always change them later.",
@@ -56,28 +61,102 @@ const UserForm = () => {
 
       <div className="userForm-container">
         <div className="userForm-container-header">
-          <h1>
+          <h2 className="colorTitle">
             {page === pageTitles.length
               ? `Congratulations, ` + userInput.displayname
               : pageTitles[page]}
-          </h1>
-          <p>{pageSubTitiles[page]}</p>
+          </h2>
+          {/* <p>{pageSubTitiles[page]}</p> */}
         </div>
         <div className="userForm-container-body">{PageDisplay()}</div>
-        <div className="userForm-container-footer">
-          <button
-            onClick={() => {
-              if (page === pageSubTitiles.length - 1) {
-                console.log(userInput);
-              } else {
-                setPage((currPage) => currPage + 1);
-              }
-            }}
-          >
-            {page === pageSubTitiles.length - 1
-              ? "Launch Eden"
-              : "Create Workspace"}
-          </button>
+        <div className="userForm-footer">
+            <div>
+                {page === 0 ?
+                    null
+                :
+                    <Button
+                        variant="contained"
+                        sx={{
+                            color: "#FFF",
+                            maxHeight: 50,
+                            backgroundColor: "#C0C0C0",
+                            '&:hover': { backgroundColor: "transparent" },
+                        }}
+                        startIcon={
+                            <KeyboardBackspaceIcon
+                            color="white"
+                            sx={{
+                                height: 40,
+                                // width: 40,
+                                fontSize: 40,
+                            }}
+                
+                        />
+                        }
+                        
+                        onClick={() => {
+                           
+                            if(page > 0) setPage((currPage) => currPage - 1);
+                        }}
+                    >
+                        Précédent
+                    </Button>
+                }
+
+            </div>
+
+            <div>
+            {page === pageTitles.length - 1 ?
+              <Button
+                variant="contained"
+                sx={{
+                    color: "#FFF",
+                    maxHeight: 50,
+                }}
+                
+                onClick={() => {
+                    if (page === pageSubTitiles.length - 1) {
+                    console.log(userInput);
+                    } else {
+                    setPage((currPage) => currPage + 1);
+                    }
+                }}
+                >
+                    Valider
+                </Button>
+              : 
+              <Button
+                variant="contained"
+                sx={{
+                    color: "#FFF",
+                    maxHeight: 50,
+                }}
+                endIcon={
+                    <ArrowRightAltIcon
+                        color="white"
+                        sx={{
+                            height: 40,
+                            // width: 40,
+                            fontSize: 40,
+                        }}
+            
+                    />
+                }
+                    onClick={() => {
+                        if (page === pageSubTitiles.length - 1) {
+                        console.log(userInput);
+                        } else {
+                        setPage((currPage) => currPage + 1);
+                        }
+                    }}
+                >
+                    Suivant
+                    
+                </Button>
+ 
+            }
+            </div>
+        
         </div>
       </div>
     </div>
