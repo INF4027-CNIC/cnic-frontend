@@ -20,11 +20,14 @@ import App from "App";
 
 // Material Dashboard 2 React Context Provider
 import { MaterialUIControllerProvider } from "context";
+import { ExportProvider } from "providers/export";
 
 ReactDOM.render(
   <BrowserRouter>
     <MaterialUIControllerProvider>
-      <App />
+      <ExportProvider>
+        <App />
+      </ExportProvider>
     </MaterialUIControllerProvider>
   </BrowserRouter>,
   document.getElementById("root")
