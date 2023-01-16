@@ -12,18 +12,109 @@ import "../styles.css";
 const UserForm = () => {
   //For manageing state of multi steps Form
   const [page, setPage] = useState(0);
+  const [erreur1, setErreur1] = useState(false);
+  const [erreur2, setErreur2] = useState(false);
 
-  const [userInput, setUserInput] = useState({
-    fullName: "",
-    displayname: "",
-    workspaceName: "",
-    workspaceUrl: "",
-    checkboxValue: "",
-  });
+  const [names, setNames] = useState("");
+  const [surName, setSurNames] = useState("");
+  const [birthDay, setBirthDay] = useState("");
+  const [birthPlace, setBirthPlace] = useState("");
+  const [gender, setGender] = useState("");
+  const [height, setHeight] = useState("");
+  const [job, setJob] = useState("");
+  const [dadName, setDadName] = useState("");
+  const [munName, setMunName] = useState("");
+  const [adress, setAdress] = useState("");
+  const [station, setStation] = useState("");
 
-  //proceed to next step
+  //manageing state in one objet
+  const userInput = {
+    names: names,
+    surName: surName,
+    birthDay: birthDay,
+    birthPlace: birthPlace,
+    gender: gender,
+    height: height,
+    job: job,
+    dadName: dadName,
+    munName: munName,
+    adress: adress,
+    station: station,
+  };
+
+  //for name
+  const handleChangeName = (e) => {
+    setNames(e.target.value);
+  };
+  const handleChangeSurName = (e) => {
+    setSurNames(e.target.value);
+  };
+  const handleChangeBirthDay = (e) => {
+    setBirthDay(e.target.value);
+  };
+  const handleChangeBirthPlace = (e) => {
+    setBirthPlace(e.target.value);
+    console.log("the user", names);
+  };
+  const handleChangeGender = (e) => {
+    setGender(e.target.value);
+  };
+  const handleChangeHeight = (e) => {
+    setHeight(e.target.value);
+  };
+  const handleChangeJob = (e) => {
+    setJob(e.target.value);
+  };
+  const handleChangeDadName = (e) => {
+    setDadName(e.target.value);
+  };
+  const handleChangeMunName = (e) => {
+    setMunName(e.target.value);
+  };
+  const handleChangeAdress = (e) => {
+    setAdress(e.target.value);
+  };
+  const handleChangeStation = (e) => {
+    setStation(e.target.value);
+  };
+
   const nextStep = () => {
-    setPage((currPage) => currPage + 1);
+    if (page === pageSubTitiles.length - 1) {
+      console.log(userInput);
+    } else {
+      console.log(
+        "step value",
+        names &&
+          surName &&
+          birthDay &&
+          birthPlace &&
+          gender &&
+          height &&
+          job &&
+          page === 0
+      );
+      if (
+        names &&
+        surName &&
+        birthDay &&
+        birthPlace &&
+        gender &&
+        height &&
+        job &&
+        page === 0
+      ) {
+        setPage((currPage) => currPage + 1);
+        setErreur1(false);
+      } else if (page === 0) {
+        setErreur1(true);
+      }
+      if (dadName && munName && adress && page === 1) {
+        setPage((currPage) => currPage + 1);
+        setErreur2(false);
+      } else if (page === 1) {
+        setErreur2(true);
+      }
+    }
   };
 
   const pageTitles = [
@@ -32,30 +123,52 @@ const UserForm = () => {
     "Information complementaire",
   ];
   const pageSubTitiles = [
-    "You can always change them later.",
-    "You can always create another workspace later",
-    "We'll streamline your setup expereince accordingly.",
+    "veillez a remplir tous les champs d'informations.",
+    "Remplissez tout information suplementaire",
+    "Renseigner votre poste d'identification.",
   ];
 
   const PageDisplay = () => {
     if (page === 0)
       return (
-        <FirstStep nextStep={nextStep} handleChange={handleChange} />
+        <FirstStep
+          nextStep={nextStep}
+          names={names}
+          surName={surName}
+          birthDay={birthDay}
+          birthPlace={birthPlace}
+          gender={gender}
+          height={height}
+          job={job}
+          handleChangeName={handleChangeName}
+          handleChangeSurName={handleChangeSurName}
+          handleChangeBirthDay={handleChangeBirthDay}
+          handleChangeBirthPlace={handleChangeBirthPlace}
+          handleChangeGender={handleChangeGender}
+          handleChangeHeight={handleChangeHeight}
+          handleChangeJob={handleChangeJob}
+        />
       );
     else if (page === 1)
       return (
-        <SecondStep nextStep={nextStep} handleChange={handleChange} />
+        <SecondStep
+          nextStep={nextStep}
+          dadName={dadName}
+          munName={munName}
+          adress={adress}
+          handleChangeDadName={handleChangeDadName}
+          handleChangeMunName={handleChangeMunName}
+          handleChangeAdress={handleChangeAdress}
+        />
       );
     else
       return (
-        <ThirdStep nextStep={nextStep} handleChange={handleChange} />
+        <ThirdStep
+          nextStep={nextStep}
+          station={station}
+          handleChangeStation={handleChangeStation}
+        />
       );
-  };
-
-  //handle field changes
-  const handleChange = (input) => (e) => {
-    setUserInput({ ...userInput, [input]: e.target.value });
-    console.log("the user", userInput);
   };
 
   return (
@@ -71,7 +184,11 @@ const UserForm = () => {
               ? `Congratulations, ` + userInput.displayname
               : pageTitles[page]}
           </h2>
-          {/* <p>{pageSubTitiles[page]}</p> */}
+          {erreur1 && page === 0 ? (
+            <p className="errorSigne">{pageSubTitiles[page]}</p>
+          ) : erreur2 && page === 1 ? (
+            <p className="errorSigne">{pageSubTitiles[page]}</p>
+          ) : null}
         </div>
         <div className="userForm-container-body">{PageDisplay()}</div>
         <div className="userForm-footer">
@@ -110,13 +227,39 @@ const UserForm = () => {
                 variant="contained"
                 sx={{
                   color: "#FFF",
-                  maxHeight: 50,
+                  height: 50,
+                  width: 100,
                 }}
                 onClick={() => {
                   if (page === pageSubTitiles.length - 1) {
                     console.log(userInput);
                   } else {
-                    setPage((currPage) => currPage + 1);
+                    console.log(
+                      "step value",
+                      names &&
+                        surName &&
+                        birthDay &&
+                        birthPlace &&
+                        gender &&
+                        height &&
+                        job &&
+                        page === 0
+                    );
+                    if (
+                      names &&
+                      surName &&
+                      birthDay &&
+                      birthPlace &&
+                      gender &&
+                      height &&
+                      job &&
+                      page === 0
+                    ) {
+                      setPage((currPage) => currPage + 1);
+                    }
+                    if (dadName && munName && adress && page === 1) {
+                      setPage((currPage) => currPage + 1);
+                    }
                   }
                 }}
               >
@@ -139,13 +282,7 @@ const UserForm = () => {
                     }}
                   />
                 }
-                onClick={() => {
-                  if (page === pageSubTitiles.length - 1) {
-                    console.log(userInput);
-                  } else {
-                    setPage((currPage) => currPage + 1);
-                  }
-                }}
+                onClick={nextStep}
               >
                 Suivant
               </Button>

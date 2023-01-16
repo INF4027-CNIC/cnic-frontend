@@ -46,3 +46,18 @@
 .Item{
     margin-bottom: 10px;
 }
+/* //style pour la gestion des erreurs */
+.userForm-container-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+.errorSigne{
+    color: #FF0000;
+    font-size: 16px;
+    align-self: center;
+    justify-self: end;
+}
+
+

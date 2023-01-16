@@ -1,38 +1,3 @@
-// import React from "react";
-// import { TextField } from '@mui/material';
-// import PersonIcon from "@mui/icons-material/Person";
-// import GroupsIcon from "@mui/icons-material/Groups";
-
-// const ThirdStep = (props) => {
-//   return (
-//     <div className="form">
-//       <div>
-//         <Box
-//             component="div"
-//             sx={{
-//             '& > :not(style)': { m: 0.5, width: '50%' },
-//             // width: '100%',
-//             }}
-//             noValidate
-//             autoComplete="off"
-//         >
-//             <TextField className="textField" id="outlined-basic" label="poste d'identification" variant="outlined" />
-//         </Box>
-//         <div></div>
-//         <div></div>
-
-//       </div>
-//         <div>
-
-//         </div>
-
-//     </div>
-//   );
-// };
-// export default ThirdStep;
-
-
-
 import React from "react";
 import { TextField } from '@mui/material';
 import Box from '@mui/material/Box';
@@ -52,7 +17,11 @@ const ThirdStep = (props) => {
                 noValidate
                 autoComplete="off"
             >
-                <TextField className="textField" id="outlined-basic" label="poste d'identification" variant="outlined" />
+                <TextField
+                 className="textField" id="outlined-basic" label="poste d'identification" variant="outlined" 
+                 value={props.station}
+                 onChange={(event)=>props.handleChangeStation(event)}
+                />
             </Box>
             <div className="Item">
                 <h4 className="titleItem">Date de délivrance</h4>
