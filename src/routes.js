@@ -80,17 +80,17 @@ const routes = [
     route: "/profile",
     component: <Profile />,
   },
-  {
-    type: "divider",
-  },
-  {
-    type: "collapse",
-    name: "Export",
-    key: "export",
-    icon: <Icon fontSize="small">print</Icon>,
-    route: "/export",
-    component: <Export />,
-  },
+  // {
+  //   type: "divider",
+  // },
+  // {
+  //   type: "collapse",
+  //   name: "Export",
+  //   key: "export",
+  //   icon: <Icon fontSize="small">print</Icon>,
+  //   route: "/export",
+  //   component: <Export />,
+  // },
   {
     type: "divider",
   },

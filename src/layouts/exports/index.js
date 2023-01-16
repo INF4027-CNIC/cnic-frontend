@@ -3,24 +3,31 @@ import MDBox from "components/MDBox";
 import { useReactToPrint } from "react-to-print";
 import MDButton from "components/MDButton";
 import MDTypography from "components/MDTypography";
-import { useRef } from "react";
 import QRCode from "react-qr-code";
 
-function Export() {
-  const exportRef = useRef(null);
+function Export({ exportRef }) {
+  const formattedDate = () => {
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    let mm = today.getMonth() + 1; // Months start at 0!
+    let dd = today.getDate();
 
-  const handlePrint = useReactToPrint({
-    content: () => exportRef.current,
-    documentTitle: "Fenyep_QRCode",
-  });
+    if (dd < 10) dd = "0" + dd;
+    if (mm < 10) mm = "0" + mm;
+
+    const formattedToday = dd + "/" + mm + "/" + yyyy;
+
+    return formattedToday;
+  };
 
   return (
     <MDBox
       ref={exportRef}
       sx={{
+        width: "60%",
         position: "absolute",
         top: 15,
-        marginLeft: "25%",
+        marginLeft: "20%",
         marginRight: "25%",
       }}
     >
@@ -81,11 +88,11 @@ function Export() {
               </MDTypography>
 
               <MDTypography sx={{ fontSize: 16, fontWeight: 600 }}>
-                {Date.now()}
+                {formattedDate()}
               </MDTypography>
             </MDBox>
           </MDBox>
-          <MDBox sx={{ width: 150 }} />
+          {/* <MDBox sx={{ width: 200 }} /> */}
           <MDBox sx={{}}>
             <QRCode
               value="https://reactjs.org/"
@@ -93,31 +100,6 @@ function Export() {
               style={{ padding: 20 }}
             />
           </MDBox>
-        </MDBox>
-
-        <MDBox
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            right: 30,
-            bottom: 30,
-            border: "1px solid black",
-            borderRadius: 2,
-          }}
-        >
-          <MDButton
-            onClick={handlePrint}
-            color="white"
-            size="sm"
-            variant="contained"
-          >
-            <Icon fontSize="medium" color="blue">
-              print
-            </Icon>
-            <MDTypography sx={{ fontSize: 16, marginLeft: 2 }}>
-              Exporter le Code QR
-            </MDTypography>
-          </MDButton>
         </MDBox>
       </MDBox>
       <MDBox
