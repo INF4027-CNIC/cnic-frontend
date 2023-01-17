@@ -4,6 +4,7 @@ import { useReactToPrint } from "react-to-print";
 import MDButton from "components/MDButton";
 import MDTypography from "components/MDTypography";
 import QRCode from "react-qr-code";
+import QRCODECARD from "../../assets/images/CNIC_QRCode_Card.png";
 
 function Export({ exportRef }) {
   const formattedDate = () => {
@@ -27,21 +28,108 @@ function Export({ exportRef }) {
         width: "60%",
         position: "absolute",
         top: 15,
-        marginLeft: "20%",
-        marginRight: "25%",
+        marginLeft: "5%",
+        marginRight: "15%",
       }}
     >
-      <MDBox className="">
-        <MDTypography
+      <MDBox>
+        <MDBox className="">
+          <MDTypography
+            sx={{
+              fontSize: 28,
+              fontWeight: 800,
+            }}
+          >
+            This is your unique QRCode
+          </MDTypography>
+        </MDBox>
+        {/* This will contain all the logic */}
+        <MDBox
           sx={{
-            fontSize: 28,
-            fontWeight: 800,
+            position: "relative",
           }}
         >
-          This is your unique QRCode
-        </MDTypography>
+          <MDBox
+            sx={{
+              borderRadius: 5,
+            }}
+          >
+            <img src={QRCODECARD} />
+          </MDBox>
+
+          <MDBox
+            sx={{
+              position: "absolute",
+              top: 10,
+              left: "50%",
+              textAlign: "center",
+            }}
+          >
+            <MDTypography sx={{ fontWeight: 600, color: "#FFD700" }}>
+              REPUBLIQUE DU CAMEROUN
+            </MDTypography>
+            <MDTypography sx={{ fontWeight: 600, color: "#FFD700" }}>
+              REPUBLIC OF CAMEROUN
+            </MDTypography>
+          </MDBox>
+          <MDBox
+            sx={{
+              position: "absolute",
+              top: "22%",
+              left: 60,
+            }}
+          >
+            <MDTypography
+              sx={{ color: "#FFFFFF", fontSize: 40, fontWeight: 500 }}
+            >
+              FENYEP WANGUE
+            </MDTypography>
+          </MDBox>
+          <MDBox
+            sx={{
+              position: "absolute",
+              bottom: "30%",
+              left: 60,
+            }}
+          >
+            <MDTypography
+              sx={{ color: "#FFFFFF", fontSize: 28, fontWeight: 400 }}
+            >
+              872031
+            </MDTypography>
+          </MDBox>
+          <MDBox
+            sx={{
+              position: "absolute",
+              bottom: "15%",
+              left: 60,
+            }}
+          >
+            <MDTypography
+              sx={{ color: "#FFFFFF", fontSize: 28, fontWeight: 400 }}
+            >
+              {formattedDate()}
+            </MDTypography>
+          </MDBox>
+
+          <MDBox
+            sx={{
+              position: "absolute",
+              top: "18%",
+              // right: 50,
+              right: -240,
+            }}
+          >
+            <QRCode
+              value="https://reactjs.org/"
+              renderAs="canvas"
+              style={{ padding: 10 }}
+            />
+          </MDBox>
+        </MDBox>
       </MDBox>
-      <MDBox
+
+      {/* <MDBox
         sx={{
           backgroundColor: "#FFFFFF",
           padding: 3,
@@ -92,14 +180,6 @@ function Export({ exportRef }) {
               </MDTypography>
             </MDBox>
           </MDBox>
-          {/* <MDBox sx={{ width: 200 }} /> */}
-          <MDBox sx={{}}>
-            <QRCode
-              value="https://reactjs.org/"
-              renderAs="canvas"
-              style={{ padding: 20 }}
-            />
-          </MDBox>
         </MDBox>
       </MDBox>
       <MDBox
@@ -116,7 +196,7 @@ function Export({ exportRef }) {
         >
           &copy; 2023, made with Love, by CNIC for a better web.
         </MDTypography>
-      </MDBox>
+      </MDBox> */}
     </MDBox>
   );
 }
