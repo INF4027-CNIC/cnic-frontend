@@ -5,6 +5,7 @@ import MDButton from "components/MDButton";
 import MDTypography from "components/MDTypography";
 import QRCode from "react-qr-code";
 import QRCODECARD from "../../assets/images/CNIC_QRCode_Card.png";
+import * as exportStyles from "./export-styles.css";
 
 function Export({ exportRef }) {
   const formattedDate = () => {
@@ -51,10 +52,10 @@ function Export({ exportRef }) {
         >
           <MDBox
             sx={{
-              borderRadius: 5,
+              borderRadius: 20,
             }}
           >
-            <img src={QRCODECARD} />
+            <img src={QRCODECARD} className="export-img" />
           </MDBox>
 
           <MDBox
