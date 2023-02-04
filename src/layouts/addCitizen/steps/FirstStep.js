@@ -1,9 +1,17 @@
 import React, { useEffect } from "react";
-import { TextField, Select, FormControl, InputLabel, MenuItem } from "@mui/material";
-// import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+import {
+  TextField,
+  Select,
+  FormControl,
+  InputLabel,
+  MenuItem,
+} from "@mui/material";
+import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import Box from "@mui/material/Box";
 import InputTextUI from "./utils/InputTextUI";
 import "../styles.css";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 const FirstStep = (props) => {
   // const handleChange = (event) => {
@@ -41,14 +49,21 @@ const FirstStep = (props) => {
           value={props.surName}
           onChange={(event) => props.handleChangeSurName(event)}
         />
-        <TextField
-          className="textField"
-          id="outlined-basic"
-          label="date de naissance"
-          variant="outlined"
-          value={props.birthDay}
-          onChange={(event) => props.handleChangeBirthDay(event)}
-        />
+
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DesktopDatePicker
+            label="date de naissance"
+            inputFormat="MM/DD/YYYY"
+            value={props.birthDay}
+            onChange={(value) =>
+              props.handleChangeBirthDay({
+                target: { value: value.toDate() },
+              })
+            }
+            renderInput={(params) => <TextField {...params} />}
+          />
+        </LocalizationProvider>
+
         <TextField
           className="textField"
           id="outlined-basic"
@@ -69,7 +84,12 @@ const FirstStep = (props) => {
         autoComplete="off"
       >
         <FormControl className="textField">
-          <InputLabel id="demo-simple-select-label" className="textField">sexe</InputLabel>
+          <InputLabel
+            id="demo-simple-select-label"
+            className="textField"
+          >
+            sexe
+          </InputLabel>
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
@@ -78,7 +98,7 @@ const FirstStep = (props) => {
             onChange={props.handleChangeGender}
             className="textField"
             style={{
-              height: 45
+              height: 45,
             }}
           >
             <MenuItem value="male">Masculin</MenuItem>

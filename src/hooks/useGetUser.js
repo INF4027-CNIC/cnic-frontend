@@ -17,8 +17,6 @@ const useGetUser = (currentUser) => {
 
     const response = await adminFetcher.getCurrentSuperAdmin();
 
-    console.log(response);
-
     if (response && response.status === 200) {
       setUser(response.data);
     }

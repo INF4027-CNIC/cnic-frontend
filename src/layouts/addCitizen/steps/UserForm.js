@@ -8,6 +8,7 @@ import ThirdStep from "./ThirdStep";
 
 import MultiStepProgressBar from "./MultiStepProgressBar";
 import "../styles.css";
+import dayjs from "dayjs";
 
 const UserForm = () => {
   //For manageing state of multi steps Form
@@ -17,7 +18,7 @@ const UserForm = () => {
 
   const [names, setNames] = useState("");
   const [surName, setSurNames] = useState("");
-  const [birthDay, setBirthDay] = useState("");
+  const [birthDay, setBirthDay] = useState(new Date(Date.now).toDateString());
   const [birthPlace, setBirthPlace] = useState("");
   const [gender, setGender] = useState("");
   const [height, setHeight] = useState("");
@@ -26,6 +27,7 @@ const UserForm = () => {
   const [munName, setMunName] = useState("");
   const [adress, setAdress] = useState("");
   const [station, setStation] = useState("");
+  const [image, setImage] = useState("");
 
   //manageing state in one objet
   const userInput = {
@@ -77,22 +79,15 @@ const UserForm = () => {
   const handleChangeStation = (e) => {
     setStation(e.target.value);
   };
+  const handleChangeImage = (e) => {
+    console.log(e.target)
+    setImage(e.target.files[0]);
+  }
 
   const nextStep = () => {
     if (page === pageSubTitiles.length - 1) {
       console.log(userInput);
     } else {
-      console.log(
-        "step value",
-        names &&
-          surName &&
-          birthDay &&
-          birthPlace &&
-          gender &&
-          height &&
-          job &&
-          page === 0
-      );
       if (
         names &&
         surName &&
@@ -156,9 +151,11 @@ const UserForm = () => {
           dadName={dadName}
           munName={munName}
           adress={adress}
+          image={image}
           handleChangeDadName={handleChangeDadName}
           handleChangeMunName={handleChangeMunName}
           handleChangeAdress={handleChangeAdress}
+          handleChangeImage={handleChangeImage}
         />
       );
     else
