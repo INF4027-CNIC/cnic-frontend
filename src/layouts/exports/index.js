@@ -122,7 +122,7 @@ function Export({ exportRef }) {
             }}
           >
             <QRCode
-              value="https://reactjs.org/"
+              value="12345678"
               renderAs="canvas"
               style={{ padding: 10 }}
             />

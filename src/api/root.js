@@ -3,7 +3,7 @@ import axios from "axios";
 export class Fetcher {
   constructor() {
     this._instance = axios.create({
-      baseURL: "https://api.github.com",
+      baseURL: "http://localhost:5000",
       timeout: 10000
     })
   }

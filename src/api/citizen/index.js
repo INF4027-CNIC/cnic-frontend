@@ -1,6 +1,7 @@
+import { Fetcher } from "api/root";
 import { Response } from "api/root";
 
-export class CitizenFetcher {
+export class CitizenFetcher extends Fetcher {
   constructor() {
     super();
   }
@@ -27,7 +28,7 @@ export class CitizenFetcher {
       console.log(err);
 
       return new Response({
-        error: err,
+        error: err.response.data,
         status: err.response.status,
       });
     }
@@ -58,7 +59,7 @@ export class CitizenFetcher {
       console.log(err);
 
       return new Response({
-        error: err,
+        error: err.response.data,
         status: err.response.status,
       });
     }

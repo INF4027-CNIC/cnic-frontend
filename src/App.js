@@ -13,7 +13,7 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useContext } from "react";
 
 // react-router components
 import {
@@ -58,6 +58,7 @@ import AddCitizen from "layouts/addCitizen";
 import Info from "layouts/info";
 import { CurrentUserProvider } from "providers/currentUser";
 import { CitizenProvider } from "providers/citizens";
+import CurrentUserContext from "context/currentUser";
 
 export default function App() {
   const [controller, dispatch] = useMaterialUIController();
@@ -126,6 +127,7 @@ export default function App() {
       <CurrentUserProvider>
         <CitizenProvider>
           <CssBaseline />
+
           {layout === "dashboard" && (
             <>
               <Sidenav
