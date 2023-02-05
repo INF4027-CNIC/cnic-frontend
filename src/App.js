@@ -33,7 +33,6 @@ import MDBox from "components/MDBox";
 
 // Material Dashboard 2 React example components
 import Sidenav from "examples/Sidenav";
-import Configurator from "examples/Configurator";
 
 // Material Dashboard 2 React themes
 import theme from "assets/theme";
@@ -58,7 +57,7 @@ import AddCitizen from "layouts/addCitizen";
 import Info from "layouts/info";
 import { CurrentUserProvider } from "providers/currentUser";
 import { CitizenProvider } from "providers/citizens";
-import CurrentUserContext from "context/currentUser";
+import Base from "layouts/Base";
 
 export default function App() {
   const [controller, dispatch] = useMaterialUIController();
@@ -126,40 +125,42 @@ export default function App() {
     <ThemeProvider theme={darkMode ? themeDark : theme}>
       <CurrentUserProvider>
         <CitizenProvider>
-          <CssBaseline />
+          <Base>
+            <CssBaseline />
 
-          {layout === "dashboard" && (
-            <>
-              <Sidenav
-                color={sidenavColor}
-                brand={
-                  (transparentSidenav && !darkMode) || whiteSidenav
-                    ? brandDark
-                    : brandWhite
-                }
-                brandName="CNIC"
-                routes={routes}
-                onMouseEnter={handleOnMouseEnter}
-                onMouseLeave={handleOnMouseLeave}
+            {layout === "dashboard" && (
+              <>
+                <Sidenav
+                  color={sidenavColor}
+                  brand={
+                    (transparentSidenav && !darkMode) || whiteSidenav
+                      ? brandDark
+                      : brandWhite
+                  }
+                  brandName="CNIC"
+                  routes={routes}
+                  onMouseEnter={handleOnMouseEnter}
+                  onMouseLeave={handleOnMouseLeave}
+                />
+              </>
+            )}
+            <Routes>
+              {getRoutes(routes)}
+              <Route
+                exact
+                path="/add-citizen"
+                key={"Add Citizen"}
+                element={<AddCitizen />}
               />
-            </>
-          )}
-          <Routes>
-            {getRoutes(routes)}
-            <Route
-              exact
-              path="/add-citizen"
-              key={"Add Citizen"}
-              element={<AddCitizen />}
-            />
-            <Route
-              exact
-              path="/personal-info"
-              key={"Personal Information"}
-              element={<Info />}
-            />
-            <Route path="*" element={<Navigate to="/dashboard" />} />
-          </Routes>
+              <Route
+                exact
+                path="/personal-info"
+                key={"Personal Information"}
+                element={<Info />}
+              />
+              <Route path="*" element={<Navigate to="/dashboard" />} />
+            </Routes>
+          </Base>
         </CitizenProvider>
       </CurrentUserProvider>
     </ThemeProvider>

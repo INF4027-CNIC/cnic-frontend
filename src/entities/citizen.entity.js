@@ -21,20 +21,20 @@ export class Citizen {
     this._id = data.id;
     this._firstname = data.firstname;
     this._lastname = data.lastname;
-    this._birthday = data.birthday;
-    this._birthplace = data.birthplace;
+    this._birthday = data.birthDate;
+    this._birthplace = data.birthPlace;
     this._avatar = data.avatar || null;
-    this._sex = data.sex;
-    this._height = data.height;
+    this._sex = data.gender;
+    this._height = data.size;
     this._fathername = data.fathername || null;
     this._mothername = data.mothername || null;
     this._address = data.address;
-    this._uniqueId = data.uniqueId;
-    this._identificationPost = data.identificationPost;
-    this._deliveryDate = data.deliveryDate;
-    this._expirationDate = data.expirationDate;
-    this._numericCode = data.numericCode || null;
-    this._qrcode = data.qrcode || null;
+    this._uniqueId = data.cniCode;
+    this._identificationPost = data.identificationPost || "CE02";
+    this._deliveryDate = data.cniDeliveryDate;
+    this._expirationDate = data.cniExpiryDate;
+    this._numericCode = data.code || null;
+    this._qrcode = data.code || null;
   }
 
   // Getters

@@ -16,7 +16,7 @@ export class CitizenFetcher extends Fetcher {
 
     // Get citizens
     try {
-      const response = await this.instance.get("/citizens");
+      const response = await this.instance.get("/users/all-users");
 
       if (response && response.status === 200) {
         return new Response({
@@ -34,7 +34,7 @@ export class CitizenFetcher extends Fetcher {
     }
   }
 
-  async createCitizen(formData) {
+  async createCitizen(payload) {
     // Get token from local storage
     const token = localStorage.getItem("cnic-token");
 
@@ -44,9 +44,9 @@ export class CitizenFetcher extends Fetcher {
     // Create citizen
     try {
       const response = await this.instance.post(
-        "/citizens",
-        formData,
-        { headers: { "Content-Type": "multipart/form-data" } }
+        "/users/create",
+        payload,
+        { headers: { "Content-Type": "application/json" } }
       );
 
       if (response && response.status === 201) {

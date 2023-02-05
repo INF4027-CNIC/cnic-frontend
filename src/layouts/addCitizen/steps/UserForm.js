@@ -9,8 +9,17 @@ import ThirdStep from "./ThirdStep";
 import MultiStepProgressBar from "./MultiStepProgressBar";
 import "../styles.css";
 import dayjs from "dayjs";
+import { generateImage } from "utils";
+import { CitizenFetcher } from "api";
+import Loader from "examples/Loaders";
+
+import { useLocation } from 'react-router-dom'
+
+const fetcher = new CitizenFetcher();
 
 const UserForm = () => {
+  const location = useLocation();
+
   //For manageing state of multi steps Form
   const [page, setPage] = useState(0);
   const [erreur1, setErreur1] = useState(false);
@@ -18,7 +27,9 @@ const UserForm = () => {
 
   const [names, setNames] = useState("");
   const [surName, setSurNames] = useState("");
-  const [birthDay, setBirthDay] = useState(new Date(Date.now).toDateString());
+  const [birthDay, setBirthDay] = useState(
+    dayjs(new Date(Date.now)).toDate()
+  );
   const [birthPlace, setBirthPlace] = useState("");
   const [gender, setGender] = useState("");
   const [height, setHeight] = useState("");
@@ -26,10 +37,13 @@ const UserForm = () => {
   const [dadName, setDadName] = useState("");
   const [munName, setMunName] = useState("");
   const [adress, setAdress] = useState("");
-  const [station, setStation] = useState("");
+  const [station, setStation] = useState("CE02");
   const [image, setImage] = useState("");
+  const [phone, setPhone] = useState(0);
 
-  //manageing state in one objet
+  const [loading, setLoading] = useState(false);
+
+  //managing state in one objet
   const userInput = {
     names: names,
     surName: surName,
@@ -42,6 +56,45 @@ const UserForm = () => {
     munName: munName,
     adress: adress,
     station: station,
+  };
+
+  // Some handlers
+  const handleSubmit = async () => {
+    if (loading) return;
+
+    const data = {
+      firstname: names,
+      lastname: surName,
+      phone,
+      avatar: generateImage(),
+      birthDate: new Date(birthDay).getTime(),
+      birthPlace,
+      size: height,
+      gender,
+      profession: job,
+      address: adress,
+      cniDeliveryDate: dayjs(new Date(Date.now())).format(
+        "YYYY-MM-DD"
+      ),
+      fathername: dadName,
+      mothername: munName,
+    };
+
+    // Start loading
+    setLoading(true)
+
+    const response = await fetcher.createCitizen(data);
+
+    // Stop loading
+    setLoading(false)
+
+    if (response.data) {
+      console.log(response.data)
+
+      window.location.href = "/admin/citoyens";
+    } else {
+      console.log(response.error)
+    }
   };
 
   //for name
@@ -80,13 +133,16 @@ const UserForm = () => {
     setStation(e.target.value);
   };
   const handleChangeImage = (e) => {
-    console.log(e.target)
+    console.log(e.target);
     setImage(e.target.files[0]);
-  }
+  };
+  const handleChangePhone = (e) => {
+    setPhone(e.target.value);
+  };
 
   const nextStep = () => {
     if (page === pageSubTitiles.length - 1) {
-      console.log(userInput);
+      handleSubmit();
     } else {
       if (
         names &&
@@ -103,6 +159,7 @@ const UserForm = () => {
       } else if (page === 0) {
         setErreur1(true);
       }
+
       if (dadName && munName && adress && page === 1) {
         setPage((currPage) => currPage + 1);
         setErreur2(false);
@@ -135,6 +192,7 @@ const UserForm = () => {
           gender={gender}
           height={height}
           job={job}
+          phone={phone}
           handleChangeName={handleChangeName}
           handleChangeSurName={handleChangeSurName}
           handleChangeBirthDay={handleChangeBirthDay}
@@ -142,6 +200,7 @@ const UserForm = () => {
           handleChangeGender={handleChangeGender}
           handleChangeHeight={handleChangeHeight}
           handleChangeJob={handleChangeJob}
+          handleChangePhone={handleChangePhone}
         />
       );
     else if (page === 1)
@@ -225,11 +284,11 @@ const UserForm = () => {
                 sx={{
                   color: "#FFF",
                   height: 50,
-                  width: 100,
+                  width: 140,
                 }}
                 onClick={() => {
                   if (page === pageSubTitiles.length - 1) {
-                    console.log(userInput);
+                    handleSubmit();
                   } else {
                     console.log(
                       "step value",
@@ -261,6 +320,17 @@ const UserForm = () => {
                 }}
               >
                 Valider
+
+                {
+                  !loading ? null : (
+                    <Loader 
+                      size={20}
+                      color={"#FFF"}
+                      bottom={15}
+                      left={10}
+                    />
+                  )
+                }
               </Button>
             ) : (
               <Button
@@ -268,6 +338,7 @@ const UserForm = () => {
                 sx={{
                   color: "#FFF",
                   maxHeight: 50,
+                  width: 140,
                 }}
                 endIcon={
                   <ArrowRightAltIcon

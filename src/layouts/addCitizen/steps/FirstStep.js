@@ -117,10 +117,18 @@ const FirstStep = (props) => {
         <TextField
           className="textField"
           id="outlined-basic"
-          label="proffession"
+          label="profession"
           variant="outlined"
           value={props.job}
           onChange={(event) => props.handleChangeJob(event)}
+        />
+         <TextField
+          className="textField"
+          id="outlined-basic"
+          label="téléphone"
+          variant="outlined"
+          value={props.phone}
+          onChange={(event) => props.handleChangePhone(event)}
         />
       </Box>
     </div>

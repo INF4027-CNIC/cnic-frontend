@@ -15,6 +15,7 @@ export const CitizenProvider = ({ children }) => {
   };
 
   const loadCitizens = (citizens) => {
+    console.log(citizens);
     setCitizens(citizens);
   };
 
