@@ -58,6 +58,7 @@ import Info from "layouts/info";
 import { CurrentUserProvider } from "providers/currentUser";
 import { CitizenProvider } from "providers/citizens";
 import Base from "layouts/Base";
+import { ExportProvider } from "providers/export";
 
 export default function App() {
   const [controller, dispatch] = useMaterialUIController();
@@ -125,42 +126,44 @@ export default function App() {
     <ThemeProvider theme={darkMode ? themeDark : theme}>
       <CurrentUserProvider>
         <CitizenProvider>
-          <Base>
-            <CssBaseline />
+          <ExportProvider>
+            <Base>
+              <CssBaseline />
 
-            {layout === "dashboard" && (
-              <>
-                <Sidenav
-                  color={sidenavColor}
-                  brand={
-                    (transparentSidenav && !darkMode) || whiteSidenav
-                      ? brandDark
-                      : brandWhite
-                  }
-                  brandName="CNIC"
-                  routes={routes}
-                  onMouseEnter={handleOnMouseEnter}
-                  onMouseLeave={handleOnMouseLeave}
+              {layout === "dashboard" && (
+                <>
+                  <Sidenav
+                    color={sidenavColor}
+                    brand={
+                      (transparentSidenav && !darkMode) || whiteSidenav
+                        ? brandDark
+                        : brandWhite
+                    }
+                    brandName="CNIC"
+                    routes={routes}
+                    onMouseEnter={handleOnMouseEnter}
+                    onMouseLeave={handleOnMouseLeave}
+                  />
+                </>
+              )}
+              <Routes>
+                {getRoutes(routes)}
+                <Route
+                  exact
+                  path="/add-citizen"
+                  key={"Add Citizen"}
+                  element={<AddCitizen />}
                 />
-              </>
-            )}
-            <Routes>
-              {getRoutes(routes)}
-              <Route
-                exact
-                path="/add-citizen"
-                key={"Add Citizen"}
-                element={<AddCitizen />}
-              />
-              <Route
-                exact
-                path="/personal-info"
-                key={"Personal Information"}
-                element={<Info />}
-              />
-              <Route path="*" element={<Navigate to="/dashboard" />} />
-            </Routes>
-          </Base>
+                <Route
+                  exact
+                  path="/personal-info"
+                  key={"Personal Information"}
+                  element={<Info />}
+                />
+                <Route path="*" element={<Navigate to="/dashboard" />} />
+              </Routes>
+            </Base>
+          </ExportProvider>
         </CitizenProvider>
       </CurrentUserProvider>
     </ThemeProvider>
