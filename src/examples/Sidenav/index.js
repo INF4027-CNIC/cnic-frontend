@@ -202,6 +202,7 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
                   src={brand}
                   alt="Brand"
                   width="2rem"
+                  sx={{ borderRadius: "10px", mr: 1 }}
                 />
               )}
               <MDBox

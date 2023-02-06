@@ -3,7 +3,7 @@ import MDBox from "components/MDBox";
 import { useReactToPrint } from "react-to-print";
 import MDButton from "components/MDButton";
 import MDTypography from "components/MDTypography";
-import QRCode from "react-qr-code";
+import { QRCodeSVG } from "qrcode.react";
 import QRCODECARD from "../../assets/images/CNIC_QRCode_Card.png";
 import * as exportStyles from "./export-styles.css";
 import { useContext } from "react";
@@ -119,13 +119,16 @@ function Export({ exportRef }) {
                     position: "absolute",
                     top: "18%",
                     // right: 50,
-                    right: -310,
+                    right: "-313px",
                   }}
                 >
-                  <QRCode
-                    value="12345678"
-                    renderAs="canvas"
-                    style={{ padding: 10 }}
+                  <QRCodeSVG
+                    value={citizen.qrcode}
+                    style={{ 
+                      padding: 10,
+                      width:"260px",
+                      height: "260px"
+                    }}
                   />
                 </MDBox>
               </MDBox>

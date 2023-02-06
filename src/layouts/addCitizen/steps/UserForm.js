@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import Button from "@mui/material/Button";
@@ -13,12 +13,15 @@ import { generateImage } from "utils";
 import { CitizenFetcher } from "api";
 import Loader from "examples/Loaders";
 
-import { useLocation } from 'react-router-dom'
+import { Navigate, useLocation } from 'react-router-dom'
+import CitizenContext from "context/citizens";
+import { Citizen } from "entities/citizen.entity";
 
 const fetcher = new CitizenFetcher();
 
 const UserForm = () => {
-  const location = useLocation();
+  // Global state
+  const { addCitizen } = useContext(CitizenContext)
 
   //For manageing state of multi steps Form
   const [page, setPage] = useState(0);
@@ -40,8 +43,10 @@ const UserForm = () => {
   const [station, setStation] = useState("CE02");
   const [image, setImage] = useState("");
   const [phone, setPhone] = useState(0);
+  
 
   const [loading, setLoading] = useState(false);
+  const [redirect, setRedirect] = useState(false);
 
   //managing state in one objet
   const userInput = {
@@ -91,7 +96,10 @@ const UserForm = () => {
     if (response.data) {
       console.log(response.data)
 
-      window.location.href = "/admin/citoyens";
+      const citizen = new Citizen(response.data)
+
+      addCitizen(citizen);
+      setRedirect(true);
     } else {
       console.log(response.error)
     }
@@ -226,6 +234,10 @@ const UserForm = () => {
         />
       );
   };
+
+  if (redirect) {
+    return <Navigate to="/citizens" />;
+  }
 
   return (
     <div className="userForm">

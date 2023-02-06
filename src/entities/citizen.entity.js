@@ -27,7 +27,7 @@ export class Citizen {
     this._birthday = data.birthDate;
     this._profession = data.profession;
     this._birthplace = data.birthPlace;
-    this._avatar = generateImage() || data.avatar || null;
+    this._avatar = data.avatar || null;
     this._sex = data.gender;
     this._height = data.size;
     this._fathername = data.fathername || null;

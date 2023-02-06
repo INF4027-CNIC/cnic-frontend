@@ -10,7 +10,7 @@ import MDBox from "components/MDBox";
 import image from "assets/images/img1.jpg";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import GridViewIcon from "@mui/icons-material/GridView";
-import QRCode from "qrcode.react";
+import { QRCodeSVG } from "qrcode.react";
 import "./styles/infoStyle.css";
 import { Icon } from "@mui/material";
 import { ExportContext } from "context/export";
@@ -119,9 +119,8 @@ function Info() {
 
                 <div className="firstTopElt">
                   <div className="infoTitle">Codes</div>
-                  <QRCode
+                  <QRCodeSVG
                     value={citizen.qrcode}
-                    renderAs="canvas"
                     style={{ marginTop: 20, marginBottom: 10 }}
                   />
                   <div className="infoDesc">

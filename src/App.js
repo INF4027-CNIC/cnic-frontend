@@ -53,6 +53,7 @@ import {
 // Images
 import brandWhite from "assets/images/logo-ct.png";
 import brandDark from "assets/images/logo-ct-dark.png";
+import brand from "assets/images/logo2.png";
 import AddCitizen from "layouts/addCitizen";
 import Info from "layouts/info";
 import { CurrentUserProvider } from "providers/currentUser";
@@ -134,11 +135,7 @@ export default function App() {
                 <>
                   <Sidenav
                     color={sidenavColor}
-                    brand={
-                      (transparentSidenav && !darkMode) || whiteSidenav
-                        ? brandDark
-                        : brandWhite
-                    }
+                    brand={brand}
                     brandName="CNIC"
                     routes={routes}
                     onMouseEnter={handleOnMouseEnter}
