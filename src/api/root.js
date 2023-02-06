@@ -3,7 +3,7 @@ import axios from "axios";
 export class Fetcher {
   constructor() {
     this._instance = axios.create({
-      baseURL: "http://localhost:5000",
+      baseURL: "http://cnic.onrender.com:5000",
       timeout: 10000
     })
   }
