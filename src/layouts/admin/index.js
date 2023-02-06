@@ -28,7 +28,7 @@ import Footer from "examples/Footer";
 import DataTable from "examples/Tables/DataTable";
 
 // Data
-import authorsTableData from "layouts/citizen/data/authorsTableData";
+import authorsTableData from "layouts/admin/data/authorsTableData";
 import MDButton from "components/MDButton";
 
 import Box from "@mui/material/Box";

@@ -1,8 +1,11 @@
+import { generateImage } from "utils";
+
 export class Citizen {
   _id;
   _firstname;
   _lastname;
   _birthday;
+  _profession;
   _birthplace;
   _avatar;
   _sex;
@@ -21,20 +24,21 @@ export class Citizen {
     this._id = data.id;
     this._firstname = data.firstname;
     this._lastname = data.lastname;
-    this._birthday = data.birthday;
-    this._birthplace = data.birthplace;
+    this._birthday = data.birthDate;
+    this._profession = data.profession;
+    this._birthplace = data.birthPlace;
     this._avatar = data.avatar || null;
-    this._sex = data.sex;
-    this._height = data.height;
+    this._sex = data.gender;
+    this._height = data.size;
     this._fathername = data.fathername || null;
     this._mothername = data.mothername || null;
     this._address = data.address;
-    this._uniqueId = data.uniqueId;
-    this._identificationPost = data.identificationPost;
-    this._deliveryDate = data.deliveryDate;
-    this._expirationDate = data.expirationDate;
-    this._numericCode = data.numericCode || null;
-    this._qrcode = data.qrcode || null;
+    this._uniqueId = data.cniCode;
+    this._identificationPost = data.identificationPost || "CE02";
+    this._deliveryDate = data.cniDeliveryDate;
+    this._expirationDate = data.cniExpiryDate;
+    this._numericCode = data.code || null;
+    this._qrcode = data.code || null;
   }
 
   // Getters
@@ -43,19 +47,27 @@ export class Citizen {
   }
 
   get firstname() {
-    return this._firstname;
+    return `${this._firstname[0].toUpperCase()}${this._firstname.slice(1)}`;
   }
 
   get lastname() {
-    return this._lastname;
+    return `${this._lastname[0].toUpperCase()}${this._lastname.slice(1)}`;
+  }
+
+  get fullname() {
+    return `${this.firstname} ${this.lastname}`;
   }
 
   get birthday() {
     return this._birthday;
   }
 
+  get profession() {
+    return `${this._profession[0].toUpperCase()}${this._profession.slice(1)}`;
+  }
+
   get birthplace() {
-    return this._birthplace;
+    return `${this._birthplace[0].toUpperCase()}${this._birthplace.slice(1)}`;
   }
 
   get avatar() {
@@ -71,15 +83,15 @@ export class Citizen {
   }
 
   get fathername() {
-    return this._fathername;
+    return `${this._fathername[0].toUpperCase()}${this._fathername.slice(1)}`;
   }
 
   get mothername() {
-    return this._mothername;
+    return `${this._mothername[0].toUpperCase()}${this._mothername.slice(1)}`;
   }
 
   get address() {
-    return this._address;
+    return `${this._address[0].toUpperCase()}${this._address.slice(1)}`;
   }
 
   get uniqueId() {

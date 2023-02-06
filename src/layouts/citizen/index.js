@@ -22,7 +22,12 @@ import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 
 //root navigation to add citizen
-import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  Navigate,
+  useLocation,
+} from "react-router-dom";
 
 // Material Dashboard 2 React example components
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
@@ -35,10 +40,18 @@ import authorsTableData from "layouts/citizen/data/authorsTableData";
 import MDButton from "components/MDButton";
 
 import Box from "@mui/material/Box";
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
+import CitizenContext from "context/citizens";
+import { useContext, useMemo } from "react";
 
 function Citizens() {
-  const { columns, rows } = authorsTableData();
+  // Get Global state
+  const { citizens, setCurrentCitizen } = useContext(CitizenContext);
+
+  const { columns, rows } = useMemo(
+    () => authorsTableData(citizens, setCurrentCitizen),
+    [citizens]
+  );
 
   return (
     <DashboardLayout>
@@ -73,7 +86,11 @@ function Citizens() {
                   }}
                 >
                   <Link to="/add-citizen">
-                    <MDButton color="white" size="sm" variant="contained">
+                    <MDButton
+                      color="white"
+                      size="sm"
+                      variant="contained"
+                    >
                       Enregistrer un citoyen
                     </MDButton>
                   </Link>

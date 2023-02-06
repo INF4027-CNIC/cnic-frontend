@@ -13,7 +13,7 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useContext } from "react";
 
 // react-router components
 import {
@@ -33,7 +33,6 @@ import MDBox from "components/MDBox";
 
 // Material Dashboard 2 React example components
 import Sidenav from "examples/Sidenav";
-import Configurator from "examples/Configurator";
 
 // Material Dashboard 2 React themes
 import theme from "assets/theme";
@@ -54,10 +53,13 @@ import {
 // Images
 import brandWhite from "assets/images/logo-ct.png";
 import brandDark from "assets/images/logo-ct-dark.png";
+import brand from "assets/images/logo2.png";
 import AddCitizen from "layouts/addCitizen";
 import Info from "layouts/info";
 import { CurrentUserProvider } from "providers/currentUser";
 import { CitizenProvider } from "providers/citizens";
+import Base from "layouts/Base";
+import { ExportProvider } from "providers/export";
 
 export default function App() {
   const [controller, dispatch] = useMaterialUIController();
@@ -125,39 +127,40 @@ export default function App() {
     <ThemeProvider theme={darkMode ? themeDark : theme}>
       <CurrentUserProvider>
         <CitizenProvider>
-          <CssBaseline />
-          {layout === "dashboard" && (
-            <>
-              <Sidenav
-                color={sidenavColor}
-                brand={
-                  (transparentSidenav && !darkMode) || whiteSidenav
-                    ? brandDark
-                    : brandWhite
-                }
-                brandName="CNIC"
-                routes={routes}
-                onMouseEnter={handleOnMouseEnter}
-                onMouseLeave={handleOnMouseLeave}
-              />
-            </>
-          )}
-          <Routes>
-            {getRoutes(routes)}
-            <Route
-              exact
-              path="/add-citizen"
-              key={"Add Citizen"}
-              element={<AddCitizen />}
-            />
-            <Route
-              exact
-              path="/personal-info"
-              key={"Personal Information"}
-              element={<Info />}
-            />
-            <Route path="*" element={<Navigate to="/dashboard" />} />
-          </Routes>
+          <ExportProvider>
+            <Base>
+              <CssBaseline />
+
+              {layout === "dashboard" && (
+                <>
+                  <Sidenav
+                    color={sidenavColor}
+                    brand={brand}
+                    brandName="CNIC"
+                    routes={routes}
+                    onMouseEnter={handleOnMouseEnter}
+                    onMouseLeave={handleOnMouseLeave}
+                  />
+                </>
+              )}
+              <Routes>
+                {getRoutes(routes)}
+                <Route
+                  exact
+                  path="/add-citizen"
+                  key={"Add Citizen"}
+                  element={<AddCitizen />}
+                />
+                <Route
+                  exact
+                  path="/personal-info"
+                  key={"Personal Information"}
+                  element={<Info />}
+                />
+                <Route path="*" element={<Navigate to="/dashboard" />} />
+              </Routes>
+            </Base>
+          </ExportProvider>
         </CitizenProvider>
       </CurrentUserProvider>
     </ThemeProvider>

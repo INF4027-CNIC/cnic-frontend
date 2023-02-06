@@ -34,9 +34,46 @@ import reportsLineChartData from "layouts/dashboard/data/reportsLineChartData";
 // Dashboard components
 import Projects from "layouts/dashboard/components/Projects";
 import OrdersOverview from "layouts/dashboard/components/OrdersOverview";
+import { useCallback, useContext, useMemo } from "react";
+import CitizenContext from "context/citizens";
 
 function Dashboard() {
-  const { sales, tasks } = reportsLineChartData;
+  // Get global state
+  const { citizens } = useContext(CitizenContext);
+
+  // Some handlers
+  const { citizensMale, citizensFemale, allCitizens } = useMemo(() => {
+    const citizensBySex = {
+      citizensMale: {
+        color: "primary",
+        icon: "person",
+        title: "Masculin",
+        label: "hommes enrégistrés",
+        data: [],
+      },
+      citizensFemale: { 
+        color: "success", 
+        icon: "person",
+        title: "Feminin",
+        label: "femmes enrégistrés",
+        data: [] 
+      },
+      allCitizens: {
+        color: "warning", 
+        icon: "person",
+        title: "Citoyens",
+        label: "citoyens enrégistrés",
+        data: citizens
+      }
+    };
+
+    for (let citizen of citizens) {
+      if (citizen.sex === "male") citizensBySex.citizensMale.data.push(citizen);
+      else citizensBySex.citizensFemale.data.push(citizen);
+    }
+
+    return citizensBySex;
+  }, [citizens]);
 
   return (
     <DashboardLayout>
@@ -46,62 +83,51 @@ function Dashboard() {
           <Grid item xs={12} md={6} lg={3}>
             <MDBox mb={1.5}>
               <ComplexStatisticsCard
-                color="dark"
-                icon="weekend"
-                title="Centre"
-                count={28100}
+                color={citizensMale.color}
+                icon={citizensMale.icon}
+                title={citizensMale.title}
+                count={citizensMale.data.length}
                 percentage={{
                   color: "success",
-                  amount: "28100",
-                  label: "citoyens enregistrés",
+                  amount: citizensMale.data.length,
+                  label: citizensMale.label,
                 }}
               />
             </MDBox>
           </Grid>
+
           <Grid item xs={12} md={6} lg={3}>
             <MDBox mb={1.5}>
               <ComplexStatisticsCard
-                icon="leaderboard"
-                title="Ouest"
-                count={289100}
+                color={citizensFemale.color}
+                icon={citizensFemale.icon}
+                title={citizensFemale.title}
+                count={citizensFemale.data.length}
                 percentage={{
                   color: "success",
-                  amount: "289100",
-                  label: "citoyens enregistrés",
+                  amount: citizensFemale.data.length,
+                  label: citizensFemale.label,
                 }}
               />
             </MDBox>
           </Grid>
+
           <Grid item xs={12} md={6} lg={3}>
             <MDBox mb={1.5}>
               <ComplexStatisticsCard
-                color="success"
-                icon="store"
-                title="Sud"
-                count={48100}
+                color={allCitizens.color}
+                icon={allCitizens.icon}
+                title={allCitizens.title}
+                count={allCitizens.data.length}
                 percentage={{
                   color: "success",
-                  amount: "48100",
-                  label: "citoyens enregistrés",
+                  amount: allCitizens.data.length,
+                  label: allCitizens.label,
                 }}
               />
             </MDBox>
           </Grid>
-          <Grid item xs={12} md={6} lg={3}>
-            <MDBox mb={1.5}>
-              <ComplexStatisticsCard
-                color="primary"
-                icon="person_add"
-                title="Nord"
-                count={11100}
-                percentage={{
-                  color: "success",
-                  amount: "11100",
-                  label: "citoyens enregistrés",
-                }}
-              />
-            </MDBox>
-          </Grid>
+
         </Grid>
       </MDBox>
       <Footer />

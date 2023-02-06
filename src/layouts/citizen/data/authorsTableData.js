@@ -26,14 +26,33 @@ import team2 from "assets/images/team-2.jpg";
 import team3 from "assets/images/team-3.jpg";
 import team4 from "assets/images/team-4.jpg";
 import { Link } from "react-router-dom";
+import dayjs from "dayjs";
 
-export default function data() {
-  const Author = ({ image, name }) => (
-    <Link to="/personal-info">
-      <MDBox display="flex" alignItems="center" lineHeight={1}>
+export default function data(citizens, setCurrentCitizen) {
+  const handleClick = (id) => {
+    setCurrentCitizen(id);
+  };
+
+  const Author = ({ id, image, name }) => (
+    <Link to="/personal-info" onClick={() => handleClick(id)}>
+      <MDBox
+        display="flex"
+        alignItems="center"
+        lineHeight={1}
+        sx={{
+          "&:hover": {
+            textDecoration: "none",
+            cursor: "pointer",
+          },
+        }}
+      >
         <MDAvatar src={image} name={name} size="sm" />
         <MDBox ml={2} lineHeight={1}>
-          <MDTypography display="block" variant="button" fontWeight="medium">
+          <MDTypography
+            display="block"
+            variant="button"
+            fontWeight="medium"
+          >
             {name}
           </MDTypography>
         </MDBox>
@@ -43,7 +62,12 @@ export default function data() {
 
   const Job = ({ title }) => (
     <MDBox lineHeight={1} textAlign="left">
-      <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
+      <MDTypography
+        display="block"
+        variant="caption"
+        color="text"
+        fontWeight="medium"
+      >
         {title}
       </MDTypography>
     </MDBox>
@@ -51,53 +75,63 @@ export default function data() {
 
   return {
     columns: [
-      { Header: "noms et prenoms", accessor: "author", width: "45%", align: "left" },
+      {
+        Header: "noms et prenoms",
+        accessor: "author",
+        width: "45%",
+        align: "left",
+      },
       { Header: "fonction", accessor: "function", align: "left" },
       { Header: "status", accessor: "status", align: "center" },
-      { Header: "date de naissance", accessor: "birthday", align: "center" },
+      {
+        Header: "date de naissance",
+        accessor: "birthday",
+        align: "center",
+      },
       { Header: "action", accessor: "action", align: "center" },
     ],
 
-    rows: [
-      {
-        author: <Author image={team2} name="Tom Michel" />,
-        function: <Job title="Developpeur AllStack" />,
-        status: (
-          <MDBox ml={-1}>
-            <MDBadge badgeContent="activated" color="success" variant="gradient" size="sm" />
-          </MDBox>
-        ),
-        birthday: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            23/04/18
-          </MDTypography>
-        ),
-        action: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            Edit
-          </MDTypography>
-        ),
-      },
-      {
-        author: <Author image={team3} name="Omer Fotso" />,
-        function: <Job title="Professeur" />,
-        status: (
-          <MDBox ml={-1}>
-            <MDBadge badgeContent="expired" color="warning" variant="gradient" size="sm" />
-          </MDBox>
-        ),
-        birthday: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            23/04/18
-          </MDTypography>
-        ),
-        action: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            Edit
-          </MDTypography>
-        ),
-      },
-      
-    ],
+    rows: citizens.map((citizen) => ({
+      author: (
+        <Author
+          image={citizen.avatar}
+          name={citizen.fullname}
+          id={citizen.id}
+        />
+      ),
+      function: <Job title={citizen.profession} />,
+      status: (
+        <MDBox ml={-1}>
+          <MDBadge
+            badgeContent="activated"
+            color="success"
+            variant="gradient"
+            size="sm"
+          />
+        </MDBox>
+      ),
+      birthday: (
+        <MDTypography
+          component="a"
+          href="#"
+          variant="caption"
+          color="text"
+          fontWeight="medium"
+        >
+          {dayjs(citizen.birthday).format("DD/MM/YYYY")}
+        </MDTypography>
+      ),
+      action: (
+        <MDTypography
+          component="a"
+          href="#"
+          variant="caption"
+          color="text"
+          fontWeight="medium"
+        >
+          Edit
+        </MDTypography>
+      ),
+    })),
   };
 }

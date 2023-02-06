@@ -64,14 +64,14 @@ const routes = [
     route: "/citizens",
     component: <Citizens />,
   },
-  {
-    type: "collapse",
-    name: "Administrateurs",
-    key: "admin",
-    icon: <Icon fontSize="small">people</Icon>,
-    route: "/admin",
-    component: <Admins />,
-  },
+  // {
+  //   type: "collapse",
+  //   name: "Administrateurs",
+  //   key: "admin",
+  //   icon: <Icon fontSize="small">people</Icon>,
+  //   route: "/admin",
+  //   component: <Admins />,
+  // },
   {
     type: "collapse",
     name: "Profil",

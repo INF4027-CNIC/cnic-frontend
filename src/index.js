@@ -25,9 +25,7 @@ import { ExportProvider } from "providers/export";
 ReactDOM.render(
   <BrowserRouter>
     <MaterialUIControllerProvider>
-      <ExportProvider>
-        <App />
-      </ExportProvider>
+      <App />
     </MaterialUIControllerProvider>
   </BrowserRouter>,
   document.getElementById("root")
