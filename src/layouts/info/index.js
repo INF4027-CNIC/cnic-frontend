@@ -14,19 +14,37 @@ import { QRCodeSVG } from "qrcode.react";
 import "./styles/infoStyle.css";
 import { Icon } from "@mui/material";
 import { ExportContext } from "context/export";
-import { useContext } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import Export from "layouts/exports";
 import CitizenContext from "context/citizens";
 import dayjs from "dayjs";
 import { formatDate } from "utils";
 import { Navigate } from "react-router-dom";
+import QRCode from "qrcode";
 
 // const image= require("../info/img1.jpg")
 function Info() {
   const { print, exportRef } = useContext(ExportContext);
   const { citizen } = useContext(CitizenContext);
 
-  console.log(citizen)
+  const [inputText, setInputText] = useState(
+    citizen.qrcode.toString()
+  );
+
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    console.log(inputText);
+    if (canvasRef.current) {
+      QRCode.toCanvas(
+        canvasRef.current,
+        inputText || " ",
+        (error) => error && console.error()
+      );
+    }
+  }, [inputText, canvasRef.current]);
+
+  console.log(citizen);
 
   return (
     <DashboardLayout>
@@ -37,11 +55,15 @@ function Info() {
           <div className="infoUser-content">
             <div className="infoUser-Header">
               <div className="profil_Info">
-                <img src={citizen.avatar} alt="img" className="imageProfil" />
+                <img
+                  src={citizen.avatar}
+                  alt="img"
+                  className="imageProfil"
+                />
                 <div className="Userinformation">
-                  <span>{ citizen.fullname }</span>
-                  <span>{ citizen.birthplace }</span>
-                  <span>{ formatDate(citizen.birthday) }</span>
+                  <span>{citizen.fullname}</span>
+                  <span>{citizen.birthplace}</span>
+                  <span>{formatDate(citizen.birthday)}</span>
                 </div>
               </div>
               <div className="Buttons">
@@ -62,15 +84,19 @@ function Info() {
                     Information personnelle
                   </div>
                   <div className="infoDesc">
-                    <span>{ citizen.sex === 'male' ? "Masculin" : "Feminin" }</span>
+                    <span>
+                      {citizen.sex === "male"
+                        ? "Masculin"
+                        : "Feminin"}
+                    </span>
                     <span> Sexe</span>
                   </div>
                   <div className="infoDesc">
-                    <span>{ citizen.height }</span>
+                    <span>{citizen.height}</span>
                     <span> Taille</span>
                   </div>
                   <div className="infoDesc">
-                    <span> { citizen.profession }</span>
+                    <span> {citizen.profession}</span>
                     <span> Profession</span>
                   </div>
                 </div>
@@ -80,15 +106,15 @@ function Info() {
                     Information supplementaires
                   </div>
                   <div className="infoDesc">
-                    <span>{ citizen.fathername }</span>
+                    <span>{citizen.fathername}</span>
                     <span> Nom du pere</span>
                   </div>
                   <div className="infoDesc">
-                    <span>{ citizen.mothername }</span>
+                    <span>{citizen.mothername}</span>
                     <span> Nom de la mere</span>
                   </div>
                   <div className="infoDesc">
-                    <span>{ citizen.address }</span>
+                    <span>{citizen.address}</span>
                     <span> Adresse</span>
                   </div>
                 </div>
@@ -100,7 +126,7 @@ function Info() {
                     Information complementaires
                   </div>
                   <div className="infoDesc">
-                    <span>{ citizen.uniqueId }</span>
+                    <span>{citizen.uniqueId}</span>
                     <span> Identifiant Unique</span>
                   </div>
                   <div className="infoDesc">
@@ -108,34 +134,47 @@ function Info() {
                     <span> Poste d'identification</span>
                   </div>
                   <div className="infoDesc">
-                    <span>{ formatDate(citizen.deliveryDate) }</span>
+                    <span>{formatDate(citizen.deliveryDate)}</span>
                     <span> Date de delivrance</span>
                   </div>
                   <div className="infoDesc">
-                    <span>{ formatDate(citizen.expirationDate) }</span>
+                    <span>{formatDate(citizen.expirationDate)}</span>
                     <span> Date d'expiration</span>
                   </div>
                 </div>
 
                 <div className="firstTopElt">
                   <div className="infoTitle">Codes</div>
-                  <QRCodeSVG
+                  <div style={{ display: "flex" }}>
+                    <div>
+                      <input
+                        className=""
+                        value={citizen.qrcode}
+                        onChange={(e) => setInputText(e.target.value)}
+                        hidden
+                        style={{ display: "none" }}
+                      />
+                      <br />
+                    </div>
+                    <canvas className="" ref={canvasRef} />
+                  </div>
+                  {/* <QRCodeSVG
                     value={citizen.qrcode}
                     style={{ marginTop: 20, marginBottom: 10 }}
-                  />
+                  /> */}
                   <div className="infoDesc">
-                    <span> { citizen.numericCode } </span>
+                    <span> {citizen.numericCode} </span>
                     <span> Code Numerique</span>
                   </div>
                 </div>
                 <div style={{ display: "none" }}>
-                  <Export exportRef={exportRef} />
+                  <Export exportRef={exportRef} qrCode={inputText} />
                 </div>
               </div>
             </div>
           </div>
         </MDBox>
-      ):(
+      ) : (
         <Navigate to="/dashboard" />
       )}
 

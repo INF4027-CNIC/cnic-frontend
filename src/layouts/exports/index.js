@@ -6,135 +6,167 @@ import MDTypography from "components/MDTypography";
 import { QRCodeSVG } from "qrcode.react";
 import QRCODECARD from "../../assets/images/CNIC_QRCode_Card.png";
 import * as exportStyles from "./export-styles.css";
-import { useContext } from "react";
+import { useContext, useEffect, useRef } from "react";
 import CitizenContext from "context/citizens";
 import { formatDate } from "utils";
+import QRCode from "qrcode";
 
-function Export({ exportRef }) {
-  const { citizen } = useContext(CitizenContext)
+function Export({ exportRef, qrCode }) {
+  const { citizen } = useContext(CitizenContext);
 
   // Some functions
   const getFullname = (citizen) => {
     const firstnames = citizen.firstname.split(" ");
     const lastnames = citizen.lastname.split(" ");
 
+    return `${firstnames[0].toUpperCase()} ${lastnames[0].toUpperCase()}`;
+  };
 
-    return `${firstnames[0].toUpperCase()} ${lastnames[0].toUpperCase()}`
-  }
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    // console.log(citizen.qrcode);
+    if (canvasRef.current) {
+      QRCode.toCanvas(
+        canvasRef.current,
+        qrCode || " ",
+        (error) => error && console.error()
+      );
+    }
+  }, [qrCode, canvasRef.current]);
 
   return (
     <>
-      {
-        citizen && (
-          <MDBox
-            ref={exportRef}
-            sx={{
-              width: "60%",
-              position: "absolute",
-              top: 15
-            }}
-          >
-            <MDBox>
-              <MDBox className="">
-                <MDTypography
-                  sx={{
-                    fontSize: 28,
-                    fontWeight: 800,
-                  }}
-                >
-                  This is your unique QRCode
-                </MDTypography>
-              </MDBox>
-              {/* This will contain all the logic */}
-              <MDBox
+      {citizen && (
+        <MDBox
+          ref={exportRef}
+          sx={{
+            width: "60%",
+            position: "absolute",
+            top: 15,
+          }}
+        >
+          <MDBox>
+            <MDBox className="">
+              <MDTypography
                 sx={{
-                  position: "relative",
+                  fontSize: 28,
+                  fontWeight: 800,
                 }}
               >
-                <MDBox
-                  sx={{
+                This is your unique QRCode
+              </MDTypography>
+            </MDBox>
+            {/* This will contain all the logic */}
+            <MDBox
+              sx={{
+                position: "relative",
+              }}
+            >
+              <MDBox
+                sx={{
                   borderRadius: 20,
-                  }}
-                >
-                  <img src={QRCODECARD} className="export-img" />
-                </MDBox>
+                }}
+              >
+                <img src={QRCODECARD} className="export-img" />
+              </MDBox>
 
-                <MDBox
+              <MDBox
+                sx={{
+                  position: "absolute",
+                  top: 10,
+                  left: "50%",
+                  textAlign: "center",
+                }}
+              >
+                <MDTypography
+                  sx={{ fontWeight: 600, color: "#FFD700" }}
+                >
+                  REPUBLIQUE DU CAMEROUN
+                </MDTypography>
+                <MDTypography
+                  sx={{ fontWeight: 600, color: "#FFD700" }}
+                >
+                  REPUBLIC OF CAMEROUN
+                </MDTypography>
+              </MDBox>
+              <MDBox
+                sx={{
+                  position: "absolute",
+                  top: "22%",
+                  left: 60,
+                }}
+              >
+                <MDTypography
                   sx={{
-                    position: "absolute",
-                    top: 10,
-                    left: '50%',
-                    textAlign: "center",
+                    color: "#FFFFFF",
+                    fontSize: 40,
+                    fontWeight: 500,
                   }}
                 >
-                  <MDTypography sx={{ fontWeight: 600, color: "#FFD700" }}>
-                    REPUBLIQUE DU CAMEROUN
-                  </MDTypography>
-                  <MDTypography sx={{ fontWeight: 600, color: "#FFD700" }}>
-                    REPUBLIC OF CAMEROUN
-                  </MDTypography>
-                </MDBox>
-                <MDBox
+                  {getFullname(citizen)}
+                </MDTypography>
+              </MDBox>
+              <MDBox
+                sx={{
+                  position: "absolute",
+                  bottom: "30%",
+                  left: 60,
+                }}
+              >
+                <MDTypography
                   sx={{
-                    position: "absolute",
-                    top: "22%",
-                    left: 60,
+                    color: "#FFFFFF",
+                    fontSize: 28,
+                    fontWeight: 400,
                   }}
                 >
-                  <MDTypography
-                    sx={{ color: "#FFFFFF", fontSize: 40, fontWeight: 500 }}
-                  >
-                    { getFullname(citizen) }
-                  </MDTypography>
-                </MDBox>
-                <MDBox
+                  {citizen.numericCode}
+                </MDTypography>
+              </MDBox>
+              <MDBox
+                sx={{
+                  position: "absolute",
+                  bottom: "15%",
+                  left: 60,
+                }}
+              >
+                <MDTypography
                   sx={{
-                    position: "absolute",
-                    bottom: "30%",
-                    left: 60,
+                    color: "#FFFFFF",
+                    fontSize: 28,
+                    fontWeight: 400,
                   }}
                 >
-                  <MDTypography
-                    sx={{ color: "#FFFFFF", fontSize: 28, fontWeight: 400 }}
-                  >
-                    { citizen.numericCode }
-                  </MDTypography>
-                </MDBox>
-                <MDBox
-                  sx={{
-                    position: "absolute",
-                    bottom: "15%",
-                    left: 60,
-                  }}
-                >
-                  <MDTypography
-                    sx={{ color: "#FFFFFF", fontSize: 28, fontWeight: 400 }}
-                  >
-                    {formatDate(citizen.expirationDate)}
-                  </MDTypography>
-                </MDBox>
+                  {formatDate(citizen.expirationDate)}
+                </MDTypography>
+              </MDBox>
 
-                <MDBox
-                  sx={{
-                    position: "absolute",
-                    top: "18%",
-                    // right: 50,
-                    right: "-313px",
-                  }}
-                >
-                  <QRCodeSVG
+              <MDBox
+                sx={{
+                  position: "absolute",
+                  top: "30%",
+                  // right: 50,
+                  right: "120px",
+                }}
+              >
+                {/* <QRCodeSVG
                     value={citizen.qrcode}
                     style={{ 
                       padding: 10,
                       width:"260px",
                       height: "260px"
                     }}
-                  />
-                </MDBox>
+                  /> */}
+                <canvas
+                  style={{ width: 200, height: 200 }}
+                  ref={canvasRef}
+                />
               </MDBox>
             </MDBox>
+          </MDBox>
 
-            {/* <MDBox
+          {/* <MDBox
               sx={{
                 backgroundColor: "#FFFFFF",
                 padding: 3,
@@ -202,9 +234,8 @@ function Export({ exportRef }) {
                 &copy; 2023, made with Love, by CNIC for a better web.
               </MDTypography>
             </MDBox> */}
-          </MDBox>
-        )
-      }
+        </MDBox>
+      )}
     </>
   );
 }
