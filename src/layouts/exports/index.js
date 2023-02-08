@@ -6,12 +6,12 @@ import MDTypography from "components/MDTypography";
 import { QRCodeSVG } from "qrcode.react";
 import QRCODECARD from "../../assets/images/CNIC_QRCode_Card.png";
 import * as exportStyles from "./export-styles.css";
-import { useContext, useEffect, useRef } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import CitizenContext from "context/citizens";
 import { formatDate } from "utils";
 import QRCode from "qrcode";
 
-function Export({ exportRef, qrCode }) {
+function Export({ exportRef }) {
   const { citizen } = useContext(CitizenContext);
 
   // Some functions
@@ -23,17 +23,26 @@ function Export({ exportRef, qrCode }) {
   };
 
   const canvasRef = useRef(null);
+  const [userCode, setUserCode] = useState(citizen.qrcode.toString());
 
   useEffect(() => {
-    // console.log(citizen.qrcode);
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+    // draw something on the canvas
+  }, []);
+
+  useEffect(() => {
+    console.log(userCode);
     if (canvasRef.current) {
       QRCode.toCanvas(
         canvasRef.current,
-        qrCode || " ",
+        userCode || " ",
         (error) => error && console.error()
       );
     }
-  }, [qrCode, canvasRef.current]);
+  }, [userCode, canvasRef.current]);
 
   return (
     <>
@@ -147,7 +156,7 @@ function Export({ exportRef, qrCode }) {
                   position: "absolute",
                   top: "30%",
                   // right: 50,
-                  right: "120px",
+                  right: "-70px",
                 }}
               >
                 {/* <QRCodeSVG
@@ -159,9 +168,9 @@ function Export({ exportRef, qrCode }) {
                     }}
                   /> */}
                 <canvas
-                  style={{ width: 200, height: 200 }}
+                  style={{ width: 500, height: 200 }}
                   ref={canvasRef}
-                />
+                ></canvas>
               </MDBox>
             </MDBox>
           </MDBox>
