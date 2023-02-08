@@ -50,7 +50,7 @@ function DashboardLayout({ children }) {
       if (user) {
         login(user)
       } else {
-        // window.location.href = "/authentication/sign-in"
+        window.location.href = "/authentication/sign-in"
       }
     }
   }, [user, loading])

@@ -13,7 +13,7 @@ import { generateImage } from "utils";
 import { CitizenFetcher } from "api";
 import Loader from "examples/Loaders";
 
-import { Navigate, useLocation } from 'react-router-dom'
+import { Navigate, useLocation } from "react-router-dom";
 import CitizenContext from "context/citizens";
 import { Citizen } from "entities/citizen.entity";
 
@@ -21,7 +21,7 @@ const fetcher = new CitizenFetcher();
 
 const UserForm = () => {
   // Global state
-  const { addCitizen } = useContext(CitizenContext)
+  const { addCitizen } = useContext(CitizenContext);
 
   //For manageing state of multi steps Form
   const [page, setPage] = useState(0);
@@ -41,9 +41,8 @@ const UserForm = () => {
   const [munName, setMunName] = useState("");
   const [adress, setAdress] = useState("");
   const [station, setStation] = useState("CE02");
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState(null);
   const [phone, setPhone] = useState(0);
-  
 
   const [loading, setLoading] = useState(false);
   const [redirect, setRedirect] = useState(false);
@@ -67,41 +66,50 @@ const UserForm = () => {
   const handleSubmit = async () => {
     if (loading) return;
 
-    const data = {
-      firstname: names,
-      lastname: surName,
-      phone,
-      avatar: generateImage(),
-      birthDate: new Date(birthDay).getTime(),
-      birthPlace,
-      size: height,
-      gender,
-      profession: job,
-      address: adress,
-      cniDeliveryDate: dayjs(new Date(Date.now())).format(
-        "YYYY-MM-DD"
-      ),
-      fathername: dadName,
-      mothername: munName,
-    };
-
     // Start loading
-    setLoading(true)
+    setLoading(true);
 
-    const response = await fetcher.createCitizen(data);
+    // Upload image
+    const formData = new FormData();
 
-    // Stop loading
-    setLoading(false)
+    formData.append("image", image);
 
-    if (response.data) {
-      console.log(response.data)
+    const response1 = await fetcher.uploadImage(formData);
 
-      const citizen = new Citizen(response.data)
+    if (response1.data && response1.status === 201) {
+      const data = {
+        firstname: names,
+        lastname: surName,
+        phone,
+        avatar: response1.data.image,
+        birthDate: new Date(birthDay).getTime(),
+        birthPlace,
+        size: height,
+        gender,
+        profession: job,
+        address: adress,
+        cniDeliveryDate: dayjs(new Date(Date.now())).format(
+          "YYYY-MM-DD"
+        ),
+        fathername: dadName,
+        mothername: munName,
+      };
 
-      addCitizen(citizen);
-      setRedirect(true);
-    } else {
-      console.log(response.error)
+      const response = await fetcher.createCitizen(data);
+
+      // Stop loading
+      setLoading(false);
+
+      if (response.data) {
+        console.log(response.data);
+
+        const citizen = new Citizen(response.data);
+
+        addCitizen(citizen);
+        setRedirect(true);
+      } else {
+        console.log(response.error);
+      }
     }
   };
 
@@ -332,17 +340,14 @@ const UserForm = () => {
                 }}
               >
                 Valider
-
-                {
-                  !loading ? null : (
-                    <Loader 
-                      size={20}
-                      color={"#FFF"}
-                      bottom={15}
-                      left={10}
-                    />
-                  )
-                }
+                {!loading ? null : (
+                  <Loader
+                    size={20}
+                    color={"#FFF"}
+                    bottom={15}
+                    left={10}
+                  />
+                )}
               </Button>
             ) : (
               <Button

@@ -1,3 +1,4 @@
+import { getUrlOfServer } from "utils";
 import { generateImage } from "utils";
 
 export class Citizen {
@@ -71,7 +72,8 @@ export class Citizen {
   }
 
   get avatar() {
-    return this._avatar;
+    console.log(`${getUrlOfServer()}${this._avatar}`)
+    return `${getUrlOfServer()}${this._avatar}`;
   }
 
   get sex() {

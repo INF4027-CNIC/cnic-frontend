@@ -22,3 +22,8 @@ export const formatDate = (d) => {
 
   return `${day <= 9 ? `0${day}` : day} ${months[month]} ${year}`;
 }
+
+export const getUrlOfServer = () => {
+  return "https://cnic.onrender.com/"
+  // return "http://localhost:5000/"
+}
