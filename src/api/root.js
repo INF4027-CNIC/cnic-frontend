@@ -1,11 +1,14 @@
 import axios from "axios";
 
+const url = "https://cnic.onrender.com";
+// const url = "http://192.168.43.3:5000"
+
 export class Fetcher {
   constructor() {
     this._instance = axios.create({
-      baseURL: "http://cnic.onrender.com:5000",
-      timeout: 10000
-    })
+      baseURL: url,
+      timeout: 10000000000,
+    });
   }
 
   // Getters
@@ -15,7 +18,9 @@ export class Fetcher {
 
   // Methods
   addToken(token) {
-    this._instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    this._instance.defaults.headers.common[
+      "Authorization"
+    ] = `Bearer ${token}`;
   }
 }
 
