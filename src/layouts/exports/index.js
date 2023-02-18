@@ -156,7 +156,7 @@ function Export({ exportRef }) {
                   position: "absolute",
                   top: "30%",
                   // right: 50,
-                  right: "-70px",
+                  right: "-240px",
                 }}
               >
                 {/* <QRCodeSVG
